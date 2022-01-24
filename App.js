@@ -1,20 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { ThemeProvider } from "styled-components/native";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import { useFonts as useCursive } from "expo-font";
+import { useFonts as useRoboto } from "expo-font";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+import { MainView } from "./src/components/utilities/mainview.component";
+import themes from "./src/components/theme/themes";
+import { AuthContextProvider } from "./src/services/auth/auth.context";
+import { AppSettingsContextProvider } from "./src/services/app-settings/app-settings.context";
+import { AuthCall } from "./src/features/auth/components/auth-call.component";
+
+const App = () => {
+	const [cursiveLoaded] = useCursive({
+		cursive: require("./assets/fonts/cursive.ttf"),
+	});
+	const [robotoLoaded] = useRoboto({
+		default: require("./assets/fonts/default.ttf"),
+	});
+
+	if (!cursiveLoaded || !robotoLoaded) {
+		return null;
+	}
+
+	return (
+		<ThemeProvider theme={themes}>
+			<AppSettingsContextProvider>
+				<AuthContextProvider>
+					<MainView>
+						<AuthCall />
+					</MainView>
+					<StatusBar style="auto" />
+				</AuthContextProvider>
+			</AppSettingsContextProvider>
+		</ThemeProvider>
+	);
+};
+
+export default App;
