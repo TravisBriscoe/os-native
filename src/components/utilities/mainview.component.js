@@ -9,13 +9,14 @@ const NewView = styled(SafeAreaView)`
 `;
 
 export const MainView = (props) => {
-	const { myTheme, lightTheme } = useContext(AppSettingsContext);
+	const { myTheme, material } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
 
-	const material = lightTheme ? "light" : "dark";
 	const backgroundStyle = {
 		backgroundColor: currentTheme.colors[myTheme][material].secondary,
+		flex: 1,
+		marginTop: `${StatusBar.currentHeight}px`,
 	};
 
-	return <NewView style={[backgroundStyle, props.style]}>{props.children}</NewView>;
+	return <SafeAreaView style={[backgroundStyle, props.style]}>{props.children}</SafeAreaView>;
 };

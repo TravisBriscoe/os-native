@@ -4,11 +4,11 @@ import { fetchUsersCollection } from "./auth.service";
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-	const [loggedInUser, setLoggedInUser] = useState(true);
+	const [loggedInUser, setLoggedInUser] = useState(false);
 	const [users, setUsers] = useState(null);
 
 	useEffect(() => {
-		const data = fetchUsersCollection;
+		const data = fetchUsersCollection();
 
 		setUsers(data);
 	}, []);

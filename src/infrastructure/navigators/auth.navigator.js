@@ -1,21 +1,22 @@
 import React, { useContext, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Button, TextInput, View } from "react-native";
+
 import { AuthContext } from "../../services/auth/auth.context";
+import { CustomButton } from "../../components/utilities/custom-button.component";
+import { ConstantView } from "../../components/utilities/constantview.component";
+import { Text } from "../../components/utilities/text.component";
 
 const Stack = createStackNavigator();
 
 const Welcome = ({ navigation }) => {
 	return (
-		<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-			<TouchableOpacity onPress={() => navigation.navigate("Login")}>
-				<Text>Login</Text>
-			</TouchableOpacity>
-			<TouchableOpacity onPress={() => navigation.navigate("Signup")}>
-				<Text>Signup</Text>
-			</TouchableOpacity>
-		</View>
+		<ConstantView style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+			<CustomButton action={() => navigation.navigate("Login")} label="Login" size={100} />
+			<View style={{ paddingTop: 10 }} />
+			<CustomButton action={() => navigation.navigate("Signup")} label="Signup" size={100} />
+		</ConstantView>
 	);
 };
 
@@ -25,7 +26,7 @@ const Login = ({ navigation }) => {
 	const { users, setLoggedInUser } = useContext(AuthContext);
 
 	return (
-		<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+		<ConstantView style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
 			<Text>Email:</Text>
 			<TextInput
 				style={{ height: 40, margin: 12, borderWidth: 1, padding: 10, width: "80%" }}
@@ -34,18 +35,29 @@ const Login = ({ navigation }) => {
 			/>
 			<Text>Password:</Text>
 			<TextInput
-				style={{ height: 40, margin: 12, borderWidth: 1, padding: 10, width: "80%" }}
+				style={{
+					height: 40,
+					margin: 12,
+					borderWidth: 1,
+					padding: 10,
+					width: "80%",
+				}}
 				value={password}
 				onChangeText={(text) => onChangePassword(text)}
 			/>
-			<Button
-				title="Login With Email"
-				onPress={() => {
+			<View style={{ paddingTop: 10 }} />
+			<CustomButton
+				label="Login With Email"
+				action={() => {
 					console.log(users);
 				}}
+				size={200}
 			/>
-			<Button title="Login with Google" />
-		</View>
+			<View style={{ paddingTop: 10 }} />
+			<CustomButton label="Login with Google" size={200} />
+			<View style={{ paddingTop: 10 }} />
+			<CustomButton label="Login with Apple" size={200} />
+		</ConstantView>
 	);
 };
 
@@ -56,7 +68,7 @@ const SignUp = ({ navigation }) => {
 	const [passwordOk, onChangePasswordOk] = useState(true);
 
 	return (
-		<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+		<ConstantView style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
 			<Text>Email:</Text>
 			<TextInput
 				style={{ height: 40, margin: 12, borderWidth: 1, padding: 10, width: "80%" }}
@@ -78,8 +90,8 @@ const SignUp = ({ navigation }) => {
 				}}
 			/>
 			{password !== confirmPassword && <Text style={{ color: "red" }}>Passwords don't match!</Text>}
-			<Button title="Signup!" />
-		</View>
+			<CustomButton label="Signup!" />
+		</ConstantView>
 	);
 };
 

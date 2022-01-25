@@ -2,22 +2,16 @@ import React, { useContext } from "react";
 import { View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { Text } from "../../components/utilities/text.component";
 import { Ionicons } from "@expo/vector-icons";
 import { ThemeContext } from "styled-components/native";
 
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 import { ConstantView } from "../../components/utilities/constantview.component";
+import { Text } from "../../components/utilities/text.component";
+import { ProductsScreen } from "../../features/products/screens/products.screen";
 
 const Tab = createBottomTabNavigator();
 
-const Products = () => {
-	return (
-		<ConstantView>
-			<Text>Products</Text>
-		</ConstantView>
-	);
-};
 const Recipes = () => {
 	return (
 		<ConstantView>
@@ -89,7 +83,6 @@ export const AppNav = () => {
 							height: 45,
 							backgroundColor: currentTheme.colors[myTheme][material].secondary,
 							alignItems: "center",
-							justifyItems: "center",
 						},
 						headerText: {
 							color: currentTheme.colors[myTheme][material].primary,
@@ -100,7 +93,7 @@ export const AppNav = () => {
 					},
 				})}
 			>
-				<Tab.Screen name="Products" component={Products} />
+				<Tab.Screen name="Products" component={ProductsScreen} />
 				<Tab.Screen name="Recipes" component={Recipes} />
 				<Tab.Screen name="OrderSheet" component={OrderSheet} />
 				<Tab.Screen name="Settings" component={Settings} options={{ headerShown: false }} />

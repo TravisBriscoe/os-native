@@ -29,8 +29,8 @@ const App = () => {
 					<MainView>
 						<AuthCall />
 					</MainView>
-					<StatusBar style="auto" />
 				</AuthContextProvider>
+				<StatusBar style="light" />
 			</AppSettingsContextProvider>
 		</ThemeProvider>
 	);
