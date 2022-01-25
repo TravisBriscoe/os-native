@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.anomicaphasia.osnative",
+    package = "com.bastard.ordersheet",
 )
 
 android_resource(
     name = "res",
-    package = "com.anomicaphasia.osnative",
+    package = "com.bastard.ordersheet",
     res = "src/main/res",
 )
 

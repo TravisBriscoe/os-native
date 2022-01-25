@@ -133,7 +133,7 @@ android {
     }
 
     defaultConfig {
-        applicationId 'com.anomicaphasia.osnative'
+        applicationId 'com.bastard.ordersheet'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

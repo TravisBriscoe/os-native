@@ -25,7 +25,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>com.anomicaphasia.osnative</string>
+          <string>com.bastard.ordersheet</string>
         </array>
       </dict>
     </array>
