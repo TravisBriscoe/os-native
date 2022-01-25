@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { ThemeProvider } from "styled-components/native";
 
 import { useFonts as useCursive } from "expo-font";
@@ -30,7 +29,6 @@ const App = () => {
 						<AuthCall />
 					</MainView>
 				</AuthContextProvider>
-				<StatusBar style="light" />
 			</AppSettingsContextProvider>
 		</ThemeProvider>
 	);

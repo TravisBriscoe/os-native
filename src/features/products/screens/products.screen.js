@@ -30,8 +30,11 @@ export const ProductsScreen = () => {
 							<List.Accordion
 								title={<Text>{item.name}</Text>}
 								description={
-									<Text style={{ fontSize: currentTheme.fontSizes[1] }}>{item.desc}</Text>
+									<Text style={{ fontSize: currentTheme.fontSizes[1], fontStyle: "italic" }}>
+										{item.desc}
+									</Text>
 								}
+								descriptionNumberOfLines={1}
 								titleStyle={{
 									fontSize: currentTheme.fontSizes[6],
 								}}
@@ -68,7 +71,11 @@ export const ProductsScreen = () => {
 								<List.Item
 									title="Split"
 									titleStyle={titleStyle}
-									right={() => <Text>{item.split ? "yes" : "no"}</Text>}
+									right={() => (
+										<Text style={{ color: item.split ? "green" : "red", fontStyle: "italic" }}>
+											{item.split ? "Yes!" : "No!"}
+										</Text>
+									)}
 								/>
 							</List.Accordion>
 						) : (
@@ -102,7 +109,11 @@ export const ProductsScreen = () => {
 								<List.Item
 									title="Split"
 									titleStyle={titleStyle}
-									right={() => <Text>{item.split ? "yes" : "no"}</Text>}
+									right={() => (
+										<Text style={{ color: item.split ? "green" : "red", fontStyle: "italic" }}>
+											{item.split ? "Yes!" : "No!"}
+										</Text>
+									)}
 								/>
 							</List.Accordion>
 						)}
