@@ -80,13 +80,14 @@ export const AppNav = () => {
 					},
 					headerStyle: {
 						headerView: {
-							height: 45,
+							height: 50,
 							backgroundColor: currentTheme.colors[myTheme][material].secondary,
 							alignItems: "center",
 						},
 						headerText: {
 							color: currentTheme.colors[myTheme][material].primary,
 							fontFamily: currentTheme.fonts[myFont],
+							fontStyle: "italic",
 							fontSize:
 								myFont === "default" ? currentTheme.fontSizes[6] : currentTheme.fontSizes[5] + 5,
 						},
@@ -96,7 +97,7 @@ export const AppNav = () => {
 				<Tab.Screen name="Products" component={ProductsScreen} />
 				<Tab.Screen name="Recipes" component={Recipes} />
 				<Tab.Screen name="OrderSheet" component={OrderSheet} />
-				<Tab.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
+				<Tab.Screen name="Settings" component={Settings} />
 			</Tab.Navigator>
 		</NavigationContainer>
 	);

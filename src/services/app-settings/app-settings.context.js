@@ -4,7 +4,7 @@ export const AppSettingsContext = createContext();
 
 export const AppSettingsContextProvider = ({ children }) => {
 	const [lightTheme, setLightTheme] = useState(true);
-	const [myTheme, setMyTheme] = useState("blue");
+	const [myTheme, setMyTheme] = useState("black");
 	const [restaurantName, setRestaurantName] = useState("Fake Restaurant");
 	const [myFont, setMyFont] = useState("default");
 	const material = lightTheme ? "light" : "dark";

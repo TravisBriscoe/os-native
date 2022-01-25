@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-
+import { View } from "react-native";
 import { ActivityIndicator, Colors } from "react-native-paper";
 import styled, { ThemeContext } from "styled-components/native";
 
@@ -30,17 +30,32 @@ export const Spinner = () => {
 				}
 				size={125}
 			/>
-			<Text
+			<View
 				style={{
 					position: "absolute",
-					paddingTop: currentTheme.spacing[5] * 2 + currentTheme.spacing[4],
-					paddingLeft: currentTheme.spacing[5],
-					fontSize: currentTheme.fontSizes[0],
-					fontFamily: currentTheme.fonts[myFont],
+					paddingTop: currentTheme.spacing[7] + currentTheme.spacing[2],
+					paddingLeft: currentTheme.spacing[7],
 				}}
 			>
-				Gathering Data...
-			</Text>
+				<Text
+					style={{
+						fontSize: currentTheme.fontSizes[1],
+						fontFamily: currentTheme.fonts[myFont],
+						fontStyle: "italic",
+					}}
+				>
+					Gathering
+				</Text>
+				<Text
+					style={{
+						fontSize: currentTheme.fontSizes[1],
+						fontFamily: currentTheme.fonts[myFont],
+						fontStyle: "italic",
+					}}
+				>
+					Data...
+				</Text>
+			</View>
 		</LoadingContainer>
 	);
 };

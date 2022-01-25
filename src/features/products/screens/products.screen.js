@@ -8,9 +8,10 @@ import { Text } from "../../../components/utilities/text.component";
 
 import { ProductsContext } from "../../../services/products/products.context";
 import { AppSettingsContext } from "../../../services/app-settings/app-settings.context";
+import { Spinner } from "../../../components/utilities/activity-spinner.component";
 
 export const ProductsScreen = () => {
-	const { products } = useContext(ProductsContext);
+	const { products, isLoading } = useContext(ProductsContext);
 	const { myTheme, myFont, material } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
 
@@ -22,6 +23,7 @@ export const ProductsScreen = () => {
 
 	return (
 		<ConstantView>
+			{isLoading && <Spinner />}
 			<FlatList
 				data={products}
 				renderItem={({ item }) => (
