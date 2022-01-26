@@ -3,7 +3,7 @@ import { FlatList } from "react-native";
 import { List } from "react-native-paper";
 import { ThemeContext } from "styled-components/native";
 
-import { ConstantView } from "../../../components/utilities/constantview.component";
+import { ConstantView } from "../../../components/utilities/custom-views.component";
 import { Text } from "../../../components/utilities/text.component";
 
 import { ProductsContext } from "../../../services/products/products.context";

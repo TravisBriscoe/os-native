@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { ThemeContext } from "styled-components/native";
 
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
-import { ConstantView } from "../../components/utilities/constantview.component";
+import { ConstantView } from "../../components/utilities/custom-views.component";
 import { Text } from "../../components/utilities/text.component";
 import { ProductsScreen } from "../../features/products/screens/products.screen";
 

@@ -5,8 +5,9 @@ import { Button, TextInput, View } from "react-native";
 
 import { AuthContext } from "../../services/auth/auth.context";
 import { CustomButton } from "../../components/utilities/custom-button.component";
-import { ConstantView } from "../../components/utilities/constantview.component";
+import { ConstantView } from "../../components/utilities/custom-views.component";
 import { Text } from "../../components/utilities/text.component";
+import { CustomInput } from "../../components/utilities/custom-input.components";
 
 const Stack = createStackNavigator();
 
@@ -27,12 +28,7 @@ const Login = ({ navigation }) => {
 
 	return (
 		<ConstantView style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-			<Text>Email:</Text>
-			<TextInput
-				style={{ height: 40, margin: 12, borderWidth: 1, padding: 10, width: "80%" }}
-				value={useremail}
-				onChangeText={(text) => onChangeUserEmail(text.toLowerCase())}
-			/>
+			<CustomInput label="Email:" orientation="row" width="80%" />
 			<Text>Password:</Text>
 			<TextInput
 				style={{

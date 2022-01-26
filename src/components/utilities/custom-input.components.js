@@ -5,8 +5,8 @@ import { ThemeContext } from "styled-components/native";
 import { Text } from "./text.component";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 
-export const EditInput = (props) => {
-	const { label, orientation } = props;
+export const CustomInput = (props) => {
+	const { label, orientation, width } = props;
 	const { myTheme, material, myFont, screenWidth } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
 
@@ -16,18 +16,17 @@ export const EditInput = (props) => {
 				flexDirection: orientation,
 				marginTop: 50,
 				marginLeft: 20,
-				width: screenWidth - 10,
+				width: width ? width : screenWidth - 10,
 				alignItems: "center",
 			}}
 		>
-			{type ? <Text style={{ paddingRight: 10 }}>{label}:</Text> : null}
+			{label ? <Text style={{ paddingRight: 10 }}>{label}:</Text> : null}
 			<TextInput
 				style={{
-					borderBottomWidth: 2,
-					borderBottomColor: "blue",
 					color: currentTheme.colors[myTheme][material].primary,
+					backgroundColor: currentTheme.colors[myTheme][material].secondary,
 					fontFamily: currentTheme.fonts[myFont],
-					width: deviceWidth,
+					width: width ? width : screenWidth,
 				}}
 				placeholderTextColor={currentTheme.colors[myTheme][material].primary}
 				{...props}
