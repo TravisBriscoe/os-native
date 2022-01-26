@@ -6,31 +6,31 @@ import { Ionicons } from "@expo/vector-icons";
 import { ThemeContext } from "styled-components/native";
 
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
-import { ConstantView } from "../../components/utilities/custom-views.component";
-import { Text } from "../../components/utilities/text.component";
+import { CustomView } from "../../components/utilities/custom-views.component";
+import { CustomText } from "../../components/typography/custom-text.component";
 import { ProductsScreen } from "../../features/products/screens/products.screen";
 
 const Tab = createBottomTabNavigator();
 
 const Recipes = () => {
 	return (
-		<ConstantView>
-			<Text>Recipes</Text>
-		</ConstantView>
+		<CustomView>
+			<CustomText>Recipes</CustomText>
+		</CustomView>
 	);
 };
 const OrderSheet = () => {
 	return (
-		<ConstantView>
-			<Text>OrderSheet</Text>
-		</ConstantView>
+		<CustomView>
+			<CustomText>OrderSheet</CustomText>
+		</CustomView>
 	);
 };
 const Settings = () => {
 	return (
-		<ConstantView>
-			<Text>Settings</Text>
-		</ConstantView>
+		<CustomView>
+			<CustomText>Settings</CustomText>
+		</CustomView>
 	);
 };
 
@@ -74,7 +74,7 @@ export const AppNav = () => {
 					header: ({ options }) => {
 						return (
 							<View style={options.headerStyle.headerView}>
-								<Text style={options.headerStyle.headerText}>{restaurantName}</Text>
+								<CustomText style={options.headerStyle.headerText}>{restaurantName}</CustomText>
 							</View>
 						);
 					},

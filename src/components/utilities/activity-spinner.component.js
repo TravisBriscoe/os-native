@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { ActivityIndicator, Colors } from "react-native-paper";
 import styled, { ThemeContext } from "styled-components/native";
 
-import { Text } from "./text.component";
+import { CustomText } from "../typography/custom-text.component";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 
 export const Spinner = () => {
@@ -37,7 +37,7 @@ export const Spinner = () => {
 					paddingLeft: currentTheme.spacing[7],
 				}}
 			>
-				<Text
+				<CustomText
 					style={{
 						fontSize: currentTheme.fontSizes[1],
 						fontFamily: currentTheme.fonts[myFont],
@@ -45,8 +45,8 @@ export const Spinner = () => {
 					}}
 				>
 					Gathering
-				</Text>
-				<Text
+				</CustomText>
+				<CustomText
 					style={{
 						fontSize: currentTheme.fontSizes[1],
 						fontFamily: currentTheme.fonts[myFont],
@@ -54,7 +54,7 @@ export const Spinner = () => {
 					}}
 				>
 					Data...
-				</Text>
+				</CustomText>
 			</View>
 		</LoadingContainer>
 	);

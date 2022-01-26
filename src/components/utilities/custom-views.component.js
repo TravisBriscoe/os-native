@@ -3,7 +3,7 @@ import { SafeAreaView, StatusBar, Platform } from "react-native";
 import { ThemeContext } from "styled-components/native";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 
-export const MainView = (props) => {
+export const CustomMainView = (props) => {
 	const { myTheme, material } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
 
@@ -12,16 +12,18 @@ export const MainView = (props) => {
 			? Math.floor(StatusBar.currentHeight) + "px"
 			: Math.floor(StatusBar.currentHeight);
 
+	console.log(topMargin);
+
 	const backgroundStyle = {
 		backgroundColor: currentTheme.colors[myTheme][material].secondary,
 		flex: 1,
-		marginTop: topMargin,
+		marginTop: "30px",
 	};
 
 	return <SafeAreaView style={[backgroundStyle, props.style]}>{props.children}</SafeAreaView>;
 };
 
-export const ConstantView = (props) => {
+export const CustomView = (props) => {
 	const { myTheme, material } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
 

@@ -2,34 +2,36 @@ import React, { useContext } from "react";
 import { TextInput, View, Dimensions } from "react-native";
 import { ThemeContext } from "styled-components/native";
 
-import { Text } from "./text.component";
+import { CustomText } from "../typography/custom-text.component";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 
 export const CustomInput = (props) => {
-	const { label, orientation, width } = props;
+	const { label, orientation, viewWidth, inputWidth } = props;
 	const { myTheme, material, myFont, screenWidth } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
-
+	console.log(props);
 	return (
 		<View
 			style={{
 				flexDirection: orientation,
-				marginTop: 50,
-				marginLeft: 20,
-				width: width ? width : screenWidth - 10,
+				// height: 40,
+				// margin: 12,
 				alignItems: "center",
+				width: viewWidth ? viewWidth : "80%",
 			}}
 		>
-			{label ? <Text style={{ paddingRight: 10 }}>{label}:</Text> : null}
+			{label ? <CustomText style={{ paddingRight: 10 }}>{label}</CustomText> : null}
 			<TextInput
-				style={{
-					color: currentTheme.colors[myTheme][material].primary,
-					backgroundColor: currentTheme.colors[myTheme][material].secondary,
-					fontFamily: currentTheme.fonts[myFont],
-					width: width ? width : screenWidth,
-				}}
+				style={[
+					{
+						color: currentTheme.colors[myTheme][material].primary,
+						backgroundColor: currentTheme.colors[myTheme][material].secondary,
+						fontFamily: currentTheme.fonts[myFont],
+						width: inputWidth ? inputWidth : "100%",
+					},
+					props.style,
+				]}
 				placeholderTextColor={currentTheme.colors[myTheme][material].primary}
-				{...props}
 			/>
 		</View>
 	);

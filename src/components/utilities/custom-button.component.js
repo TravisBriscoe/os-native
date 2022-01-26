@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { TouchableOpacity } from "react-native";
 import { ThemeContext } from "styled-components/native";
 
-import { Text } from "./text.component";
+import { CustomText } from "../typography/custom-text.component";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 
 export const CustomButton = (props) => {
@@ -23,7 +23,7 @@ export const CustomButton = (props) => {
 			]}
 			onPress={action}
 		>
-			<Text>{label}</Text>
+			<CustomText>{label}</CustomText>
 		</TouchableOpacity>
 	);
 };

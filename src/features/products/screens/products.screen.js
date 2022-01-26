@@ -3,8 +3,8 @@ import { FlatList } from "react-native";
 import { List } from "react-native-paper";
 import { ThemeContext } from "styled-components/native";
 
-import { ConstantView } from "../../../components/utilities/custom-views.component";
-import { Text } from "../../../components/utilities/text.component";
+import { CustomView } from "../../../components/utilities/custom-views.component";
+import { CustomText } from "../../../components/typography/custom-text.component";
 
 import { ProductsContext } from "../../../services/products/products.context";
 import { AppSettingsContext } from "../../../services/app-settings/app-settings.context";
@@ -22,7 +22,7 @@ export const ProductsScreen = () => {
 	};
 
 	return (
-		<ConstantView>
+		<CustomView>
 			{isLoading && <Spinner />}
 			<FlatList
 				data={products}
@@ -30,11 +30,11 @@ export const ProductsScreen = () => {
 					<List.Section>
 						{item.desc ? (
 							<List.Accordion
-								title={<Text>{item.name}</Text>}
+								title={<CustomText>{item.name}</CustomText>}
 								description={
-									<Text style={{ fontSize: currentTheme.fontSizes[1], fontStyle: "italic" }}>
+									<CustomText variant="caption" style={{ fontSize: currentTheme.fontSizes[1] }}>
 										{item.desc}
-									</Text>
+									</CustomText>
 								}
 								descriptionNumberOfLines={1}
 								titleStyle={{
@@ -45,7 +45,7 @@ export const ProductsScreen = () => {
 								<List.Item
 									title="Description"
 									titleStyle={titleStyle}
-									right={() => <Text>{item.desc}</Text>}
+									right={() => <CustomText>{item.desc}</CustomText>}
 									borderless
 									rippleColor="red"
 									underlayColor="red"
@@ -53,36 +53,38 @@ export const ProductsScreen = () => {
 								<List.Item
 									title="Unit"
 									titleStyle={titleStyle}
-									right={() => <Text>{item.unit}</Text>}
+									right={() => <CustomText>{item.unit}</CustomText>}
 								/>
 								<List.Item
 									title="Distributor"
 									titleStyle={titleStyle}
-									right={() => <Text>{item.dist}</Text>}
+									right={() => <CustomText>{item.dist}</CustomText>}
 								/>
 								<List.Item
 									title="Stored"
 									titleStyle={titleStyle}
-									right={() => <Text>{item.stored}</Text>}
+									right={() => <CustomText>{item.stored}</CustomText>}
 								/>
 								<List.Item
 									title="Category"
 									titleStyle={titleStyle}
-									right={() => <Text>{item.category}</Text>}
+									right={() => <CustomText>{item.category}</CustomText>}
 								/>
 								<List.Item
 									title="Split"
 									titleStyle={titleStyle}
 									right={() => (
-										<Text style={{ color: item.split ? "green" : "red", fontStyle: "italic" }}>
+										<CustomText
+											style={{ color: item.split ? "green" : "red", fontStyle: "italic" }}
+										>
 											{item.split ? "Yes!" : "No!"}
-										</Text>
+										</CustomText>
 									)}
 								/>
 							</List.Accordion>
 						) : (
 							<List.Accordion
-								title={<Text>{item.name}</Text>}
+								title={<CustomText>{item.name}</CustomText>}
 								titleStyle={{
 									fontSize: currentTheme.fontSizes[6],
 								}}
@@ -91,30 +93,32 @@ export const ProductsScreen = () => {
 								<List.Item
 									title="Unit"
 									titleStyle={titleStyle}
-									right={() => <Text>{item.unit}</Text>}
+									right={() => <CustomText>{item.unit}</CustomText>}
 								/>
 								<List.Item
 									title="Distributor"
 									titleStyle={titleStyle}
-									right={() => <Text>{item.dist}</Text>}
+									right={() => <CustomText>{item.dist}</CustomText>}
 								/>
 								<List.Item
 									title="Stored"
 									titleStyle={titleStyle}
-									right={() => <Text>{item.stored}</Text>}
+									right={() => <CustomText>{item.stored}</CustomText>}
 								/>
 								<List.Item
 									title="Category"
 									titleStyle={titleStyle}
-									right={() => <Text>{item.category}</Text>}
+									right={() => <CustomText>{item.category}</CustomText>}
 								/>
 								<List.Item
 									title="Split"
 									titleStyle={titleStyle}
 									right={() => (
-										<Text style={{ color: item.split ? "green" : "red", fontStyle: "italic" }}>
+										<CustomText
+											style={{ color: item.split ? "green" : "red", fontStyle: "italic" }}
+										>
 											{item.split ? "Yes!" : "No!"}
-										</Text>
+										</CustomText>
 									)}
 								/>
 							</List.Accordion>
@@ -122,6 +126,6 @@ export const ProductsScreen = () => {
 					</List.Section>
 				)}
 			/>
-		</ConstantView>
+		</CustomView>
 	);
 };

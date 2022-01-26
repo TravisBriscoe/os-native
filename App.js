@@ -3,7 +3,7 @@ import { ThemeProvider } from "styled-components/native";
 import { useFonts as useCursive } from "expo-font";
 import { useFonts as useRoboto } from "expo-font";
 
-import { MainView } from "./src/components/utilities/custom-views.component";
+import { CustomMainView } from "./src/components/utilities/custom-views.component";
 import theme from "./src/components/theme/theme";
 import { AuthContextProvider } from "./src/services/auth/auth.context";
 import { AppSettingsContextProvider } from "./src/services/app-settings/app-settings.context";
@@ -25,9 +25,9 @@ const App = () => {
 		<ThemeProvider theme={theme}>
 			<AppSettingsContextProvider>
 				<AuthContextProvider>
-					<MainView>
+					<CustomMainView>
 						<AuthCall />
-					</MainView>
+					</CustomMainView>
 				</AuthContextProvider>
 			</AppSettingsContextProvider>
 		</ThemeProvider>
