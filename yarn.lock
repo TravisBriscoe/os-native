@@ -1302,6 +1302,11 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
+"@invertase/react-native-apple-authentication@^2.1.5":
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/@invertase/react-native-apple-authentication/-/react-native-apple-authentication-2.1.5.tgz#a66d7a6185724ccf3c4dab8ecc7448164dc6c0ea"
+  integrity sha512-qX6Wm/F12pkzc95q6NHPtleA6tgWw1JLatAt/pbFhifxnMRgUU38/+JsLiDbtL7mzjtKAjWDETGYZ4dKGZQ8Wg==
+
 "@jest/create-cache-key-function@^26.5.0":
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/@jest/create-cache-key-function/-/create-cache-key-function-26.6.2.tgz#04cf439207a4fd12418d8aee551cddc86f9ac5f5"
@@ -1483,6 +1488,11 @@
   version "14.2.3"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-14.2.3.tgz#6a90b39cdc17ad87317cec5b9502d7f340bf05af"
   integrity sha512-ktsS314Hu7N6BT7YrhC+K9/gTpwuXVgeLUuMYzNXhd0oFb3iy6S97kfOOKdz2oyHEDjEmBiI4IWDPTvm77HdNA==
+
+"@react-native-google-signin/google-signin@^7.0.4":
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/@react-native-google-signin/google-signin/-/google-signin-7.0.4.tgz#b557be28dac0af8fd020010b8a9670ae65bedba8"
+  integrity sha512-N5uVDlTp/mgpa5gFr6VIr8pldt68jlmHOlqcTSnSwBuZXusXMiK53DCIOWuYk4OJ1rlb8Esa9J4FJwUB0psU9Q==
 
 "@react-native/assets@1.0.0":
   version "1.0.0"

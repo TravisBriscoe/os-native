@@ -1,10 +1,10 @@
+import React from "react";
 import { ThemeProvider } from "styled-components/native";
 
 import { useFonts as useCursive } from "expo-font";
 import { useFonts as useRoboto } from "expo-font";
 
-import { CustomMainView } from "./src/components/utilities/custom-views.component";
-import theme from "./src/components/theme/theme";
+import theme from "./src/infrastructure/theme/theme";
 import { AuthContextProvider } from "./src/services/auth/auth.context";
 import { AppSettingsContextProvider } from "./src/services/app-settings/app-settings.context";
 import { AuthCall } from "./src/features/auth/components/auth-call.component";
@@ -22,15 +22,15 @@ const App = () => {
 	}
 
 	return (
-		<ThemeProvider theme={theme}>
-			<AppSettingsContextProvider>
-				<AuthContextProvider>
-					<CustomMainView>
+		<>
+			<ThemeProvider theme={theme}>
+				<AppSettingsContextProvider>
+					<AuthContextProvider>
 						<AuthCall />
-					</CustomMainView>
-				</AuthContextProvider>
-			</AppSettingsContextProvider>
-		</ThemeProvider>
+					</AuthContextProvider>
+				</AppSettingsContextProvider>
+			</ThemeProvider>
+		</>
 	);
 };
 

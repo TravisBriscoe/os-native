@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { ActivityIndicator, Colors } from "react-native-paper";
 import styled, { ThemeContext } from "styled-components/native";
 
-import { CustomText } from "../typography/custom-text.component";
+import { CustomText } from "./custom-text.component";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 
 export const Spinner = () => {

@@ -4,7 +4,7 @@ import { List } from "react-native-paper";
 import { ThemeContext } from "styled-components/native";
 
 import { CustomView } from "../../../components/utilities/custom-views.component";
-import { CustomText } from "../../../components/typography/custom-text.component";
+import { CustomText } from "../../../components/utilities/custom-text.component";
 
 import { ProductsContext } from "../../../services/products/products.context";
 import { AppSettingsContext } from "../../../services/app-settings/app-settings.context";

@@ -1,13 +1,19 @@
 import React, { useContext, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Button, TextInput, View } from "react-native";
+import { Platform, TextInput, View } from "react-native";
+import { GoogleSignin, GoogleSigninButton } from "@react-native-google-signin/google-signin";
+import { appleAuth, AppleButton } from "@invertase/react-native-apple-authentication";
 
 import { AuthContext } from "../../services/auth/auth.context";
 import { CustomButton } from "../../components/utilities/custom-button.component";
 import { CustomView } from "../../components/utilities/custom-views.component";
-import { CustomText } from "../../components/typography/custom-text.component";
+import { CustomText } from "../../components/utilities/custom-text.component";
 import { CustomInput } from "../../components/utilities/custom-input.components";
+
+GoogleSignin.configure({
+	webClientId: "247627559502-dhssc74p8u7ljrgn2aavbcs3a61hl5po.apps.googleusercontent.com",
+});
 
 const Stack = createStackNavigator();
 
@@ -20,6 +26,8 @@ const Welcome = ({ navigation }) => {
 		</CustomView>
 	);
 };
+
+const isIos = Platform.OS === "ios";
 
 const Login = ({ navigation }) => {
 	const [useremail, onChangeUserEmail] = useState(null);
@@ -52,10 +60,21 @@ const Login = ({ navigation }) => {
 				}}
 				size={200}
 			/>
-			<View style={{ paddingTop: 10 }} />
-			<CustomButton label="Login with Google" size={200} />
-			<View style={{ paddingTop: 10 }} />
-			<CustomButton label="Login with Apple" size={200} />
+			{isIos && (
+				<>
+					<View style={{ paddingTop: 10 }} />
+					<AppleButton
+						buttonStyle={AppleButton.Style.BLACK}
+						buttonType={AppleButton.Type.SIGN_IN}
+						style={{
+							width: 200,
+							height: 39,
+						}}
+					/>
+					<View style={{ paddingTop: 10 }} />
+				</>
+			)}
+			<GoogleSigninButton style={{ width: 200 }} color={GoogleSigninButton.Color.Dark} />
 		</CustomView>
 	);
 };

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { TextInput, View, Dimensions } from "react-native";
 import { ThemeContext } from "styled-components/native";
 
-import { CustomText } from "../typography/custom-text.component";
+import { CustomText } from "./custom-text.component";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 
 export const CustomInput = (props) => {

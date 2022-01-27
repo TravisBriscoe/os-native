@@ -7,7 +7,7 @@ import { ThemeContext } from "styled-components/native";
 
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 import { CustomView } from "../../components/utilities/custom-views.component";
-import { CustomText } from "../../components/typography/custom-text.component";
+import { CustomText } from "../../components/utilities/custom-text.component";
 import { ProductsScreen } from "../../features/products/screens/products.screen";
 
 const Tab = createBottomTabNavigator();
