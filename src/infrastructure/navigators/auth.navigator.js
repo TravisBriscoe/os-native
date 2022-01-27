@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Platform, TextInput, View } from "react-native";
 import { GoogleSignin, GoogleSigninButton } from "@react-native-google-signin/google-signin";
+import auth from "@react-native-firebase/auth";
 import { appleAuth, AppleButton } from "@invertase/react-native-apple-authentication";
 
 import { AuthContext } from "../../services/auth/auth.context";
@@ -12,10 +13,26 @@ import { CustomText } from "../../components/utilities/custom-text.component";
 import { CustomInput } from "../../components/utilities/custom-input.components";
 
 GoogleSignin.configure({
-	webClientId: "247627559502-dhssc74p8u7ljrgn2aavbcs3a61hl5po.apps.googleusercontent.com",
+	webClientId: "",
 });
+// GoogleSignin.configure({ webClientId: '' });
 
 const Stack = createStackNavigator();
+
+async function onGoogleButtonPress() {
+	try {
+		// Get the users ID token
+		const { idToken } = await GoogleSignin.signIn();
+
+		// Create a Google credential with the token
+		const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+		// Sign-in the user with the credential
+		return auth().signInWithCredential(googleCredential);
+	} catch (err) {
+		console.log("Error: " + err.message);
+	}
+}
 
 const Welcome = ({ navigation }) => {
 	return (
@@ -71,10 +88,14 @@ const Login = ({ navigation }) => {
 							height: 39,
 						}}
 					/>
-					<View style={{ paddingTop: 10 }} />
 				</>
 			)}
-			<GoogleSigninButton style={{ width: 200 }} color={GoogleSigninButton.Color.Dark} />
+			<View style={{ paddingTop: 10 }} />
+			<GoogleSigninButton
+				style={{ width: 200 }}
+				color={GoogleSigninButton.Color.Dark}
+				onPress={() => onGoogleButtonPress()}
+			/>
 		</CustomView>
 	);
 };

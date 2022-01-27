@@ -6,7 +6,7 @@ import { fetchUsersCollection } from "./auth.service";
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-	const [loggedInUser, setLoggedInUser] = useState(true);
+	const [loggedInUser, setLoggedInUser] = useState(false);
 	const [initializing, setInitializing] = useState(true);
 	const [users, setUsers] = useState(null);
 

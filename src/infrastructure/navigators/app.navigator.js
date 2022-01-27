@@ -9,6 +9,7 @@ import { AppSettingsContext } from "../../services/app-settings/app-settings.con
 import { CustomView } from "../../components/utilities/custom-views.component";
 import { CustomText } from "../../components/utilities/custom-text.component";
 import { ProductsScreen } from "../../features/products/screens/products.screen";
+import { SettingsScreen } from "../../features/settings/screens/settings.screen";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,13 +24,6 @@ const OrderSheet = () => {
 	return (
 		<CustomView>
 			<CustomText>OrderSheet</CustomText>
-		</CustomView>
-	);
-};
-const Settings = () => {
-	return (
-		<CustomView>
-			<CustomText>Settings</CustomText>
 		</CustomView>
 	);
 };
@@ -97,7 +91,7 @@ export const AppNav = () => {
 				<Tab.Screen name="Products" component={ProductsScreen} />
 				<Tab.Screen name="Recipes" component={Recipes} />
 				<Tab.Screen name="OrderSheet" component={OrderSheet} />
-				<Tab.Screen name="Settings" component={Settings} />
+				<Tab.Screen name="Settings" component={SettingsScreen} />
 			</Tab.Navigator>
 		</NavigationContainer>
 	);
