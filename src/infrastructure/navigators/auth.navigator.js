@@ -3,8 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Platform, TextInput, View } from "react-native";
 import { GoogleSignin, GoogleSigninButton } from "@react-native-google-signin/google-signin";
+import { LoginManager, AccessToken } from "react-native-fbsdk-next";
 import auth from "@react-native-firebase/auth";
-import { appleAuth, AppleButton } from "@invertase/react-native-apple-authentication";
 
 import { AuthContext } from "../../services/auth/auth.context";
 import { CustomButton } from "../../components/utilities/custom-button.component";
@@ -13,7 +13,7 @@ import { CustomText } from "../../components/utilities/custom-text.component";
 import { CustomInput } from "../../components/utilities/custom-input.components";
 
 GoogleSignin.configure({
-	webClientId: "",
+	webClientId: "247627559502-dhssc74p8u7ljrgn2aavbcs3a61hl5po.apps.googleusercontent.com",
 });
 // GoogleSignin.configure({ webClientId: '' });
 
@@ -30,7 +30,33 @@ async function onGoogleButtonPress() {
 		// Sign-in the user with the credential
 		return auth().signInWithCredential(googleCredential);
 	} catch (err) {
-		console.log("Error: " + err.message);
+		console.log("Error: " + err);
+	}
+}
+
+async function onFacebookLoginPressed() {
+	try {
+		// Attempt login with permissions
+		const result = await LoginManager.logInWithPermissions(["public_profile", "email"]);
+
+		if (result.isCancelled) {
+			throw "User cancelled the login process";
+		}
+
+		// Once signed in, get the users AccesToken
+		const data = await AccessToken.getCurrentAccessToken();
+
+		if (!data) {
+			throw "Something went wrong obtaining access token";
+		}
+
+		// Create a Firebase credential with the AccessToken
+		const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+
+		// Sign-in the user with the credential
+		return auth().signInWithCredential(facebookCredential);
+	} catch (err) {
+		console.log(err);
 	}
 }
 
@@ -43,8 +69,6 @@ const Welcome = ({ navigation }) => {
 		</CustomView>
 	);
 };
-
-const isIos = Platform.OS === "ios";
 
 const Login = ({ navigation }) => {
 	const [useremail, onChangeUserEmail] = useState(null);
@@ -77,24 +101,18 @@ const Login = ({ navigation }) => {
 				}}
 				size={200}
 			/>
-			{isIos && (
-				<>
-					<View style={{ paddingTop: 10 }} />
-					<AppleButton
-						buttonStyle={AppleButton.Style.BLACK}
-						buttonType={AppleButton.Type.SIGN_IN}
-						style={{
-							width: 200,
-							height: 39,
-						}}
-					/>
-				</>
-			)}
 			<View style={{ paddingTop: 10 }} />
 			<GoogleSigninButton
 				style={{ width: 200 }}
 				color={GoogleSigninButton.Color.Dark}
 				onPress={() => onGoogleButtonPress()}
+			/>
+			<View style={{ paddingTop: 10 }} />
+			<CustomButton
+				label="Login with Facebook"
+				action={() => onFacebookLoginPressed()}
+				size={200}
+				style={{ backgroundColor: "blue", color: "white" }}
 			/>
 		</CustomView>
 	);
