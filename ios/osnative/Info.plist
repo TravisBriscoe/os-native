@@ -78,5 +78,7 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>FacebookAppID</key>
+	<string>426881739184709</string>
 </dict>
 </plist>

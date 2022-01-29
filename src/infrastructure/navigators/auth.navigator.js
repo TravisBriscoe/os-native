@@ -60,15 +60,21 @@ async function onFacebookLoginPressed() {
 	}
 }
 
-const Welcome = ({ navigation }) => {
-	return (
-		<CustomView style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-			<CustomButton action={() => navigation.navigate("Login")} label="Login" size={100} />
-			<View style={{ paddingTop: 10 }} />
-			<CustomButton action={() => navigation.navigate("Signup")} label="Signup" size={100} />
-		</CustomView>
-	);
-};
+async function signInWithEmail(username, password) {
+	try {
+		auth().signInWithEmailAndPassword(username, password);
+	} catch (err) {
+		console.log("Email login failed: " + err);
+	}
+}
+
+async function signUpWithEmail(username, password) {
+	try {
+		auth().createUserWithEmailAndPassword(username, password);
+	} catch (err) {
+		console.log("Email signup failed: " + err);
+	}
+}
 
 const Login = ({ navigation }) => {
 	const [useremail, onChangeUserEmail] = useState(null);
@@ -94,14 +100,6 @@ const Login = ({ navigation }) => {
 				onChangeText={(text) => onChangePassword(text)}
 			/>
 			<View style={{ paddingTop: 10 }} />
-			<CustomButton
-				label="Login With Email"
-				action={() => {
-					console.log(users);
-				}}
-				size={200}
-			/>
-			<View style={{ paddingTop: 10 }} />
 			<GoogleSigninButton
 				style={{ width: 200 }}
 				color={GoogleSigninButton.Color.Dark}
@@ -113,6 +111,18 @@ const Login = ({ navigation }) => {
 				action={() => onFacebookLoginPressed()}
 				size={200}
 				style={{ backgroundColor: "blue", color: "white" }}
+			/>
+			<View style={{ paddingTop: 10 }} />
+			<CustomButton
+				label="Login With Email"
+				action={() => signInWithEmail(useremail, password)}
+				size={200}
+			/>
+			<View style={{ paddingTop: 10 }} />
+			<CustomButton
+				label="Sign Up with Email"
+				action={() => navigation.navigate("Signup")}
+				size={200}
 			/>
 		</CustomView>
 	);
@@ -149,7 +159,7 @@ const SignUp = ({ navigation }) => {
 			{password !== confirmPassword && (
 				<CustomText variant="error">Passwords don't match!</CustomText>
 			)}
-			<CustomButton label="Signup!" />
+			<CustomButton label="Signup!" action={() => signUpWithEmail(useremail, password)} />
 		</CustomView>
 	);
 };
@@ -158,8 +168,7 @@ export const AuthNav = () => {
 	return (
 		<>
 			<NavigationContainer>
-				<Stack.Navigator initialRouteName="Welcome" screenOptions={{ headerShown: false }}>
-					<Stack.Screen name="Welcome" component={Welcome} />
+				<Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
 					<Stack.Screen name="Login" component={Login} />
 					<Stack.Screen name="Signup" component={SignUp} />
 				</Stack.Navigator>
