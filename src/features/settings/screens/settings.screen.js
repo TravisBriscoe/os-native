@@ -28,6 +28,7 @@ export const SettingsScreen = () => {
 			<CustomButton
 				label="Sign Out"
 				size={200}
+				variant="themed"
 				action={() => {
 					auth().signOut();
 				}}

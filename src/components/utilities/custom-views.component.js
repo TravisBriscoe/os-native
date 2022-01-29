@@ -1,31 +1,37 @@
+// Custom View and Custom SafeAreaView
+// SafeAreaView is the main view wrapper, it returns a color based on the Theme,
+// If no theme is available, it returns a color of choosing via bgColor prop
+//
+// Custom view is similar to above except it adds the themes background.
+//
 import React, { useContext } from "react";
 import { SafeAreaView, StatusBar, Platform } from "react-native";
 import { ThemeContext } from "styled-components/native";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 
-export const CustomMainView = (props) => {
+export const CustomMainView = ({ style, children, bgColor }) => {
 	const { myTheme, material } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
 
 	const topMargin = Platform.OS !== "ios" ? Math.floor(StatusBar.currentHeight) : null;
 
 	const backgroundStyle = {
-		backgroundColor: currentTheme.colors[myTheme][material].secondary,
+		backgroundColor: bgColor ? bgColor : currentTheme.colors[myTheme][material].secondary,
 		flex: 1,
 		marginTop: topMargin,
 	};
 
-	return <SafeAreaView style={[backgroundStyle, props.style]}>{props.children}</SafeAreaView>;
+	return <SafeAreaView style={[backgroundStyle, style]}>{children}</SafeAreaView>;
 };
 
-export const CustomView = (props) => {
+export const CustomView = ({ children, style, bgColor }) => {
 	const { myTheme, material } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
 
 	const backgroundStyle = {
-		backgroundColor: currentTheme.colors[myTheme][material].secondary,
+		backgroundColor: bgColor ? bgColor : currentTheme.colors[myTheme][material].secondary,
 		flex: 1,
 	};
 
-	return <SafeAreaView style={[backgroundStyle, props.style]}>{props.children}</SafeAreaView>;
+	return <SafeAreaView style={[backgroundStyle, style]}>{children}</SafeAreaView>;
 };

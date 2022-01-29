@@ -1,3 +1,9 @@
+// Custom Text component
+//
+// Returns a custom text component that is styled according to theme.
+// If no theme is available it returns a default Text component.
+//
+
 import React, { useContext } from "react";
 import { Text } from "react-native";
 import { ThemeContext } from "styled-components/native";
@@ -28,6 +34,10 @@ export const CustomText = ({ children, style, variant = "body" }) => {
 			fontFamily: currentTheme.fonts[myFont],
 			fontSize: myFont === "cursive" ? currentTheme.fontSizes[4] : currentTheme.fontSizes[3],
 			color: currentTheme.colors[myTheme][material].primary,
+		},
+		default: {
+			fontSize: 16,
+			color: "#000000",
 		},
 	};
 

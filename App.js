@@ -1,10 +1,10 @@
 import React from "react";
 import { ThemeProvider } from "styled-components/native";
+import theme from "./src/infrastructure/theme/theme";
 
 import { useFonts as useCursive } from "expo-font";
 import { useFonts as useRoboto } from "expo-font";
 
-import theme from "./src/infrastructure/theme/theme";
 import { AuthContextProvider } from "./src/services/auth/auth.context";
 import { AppSettingsContextProvider } from "./src/services/app-settings/app-settings.context";
 import { AuthCall } from "./src/features/auth/components/auth-call.component";
