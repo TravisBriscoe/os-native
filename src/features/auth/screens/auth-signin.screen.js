@@ -6,6 +6,7 @@ import { CustomView } from "../../../components/utilities/custom-views.component
 import { CustomText } from "../../../components/utilities/custom-text.component";
 import { CustomInput } from "../../../components/utilities/custom-input.components";
 import { AuthContext } from "../../../services/auth/auth.context";
+import { CustomDivider } from "../../../components/utilities/custom-divider.component";
 
 export const LoginScreen = ({ navigation }) => {
 	const [useremail, onChangeUserEmail] = useState(null);
@@ -121,25 +122,25 @@ export const LoginScreen = ({ navigation }) => {
 			/>
 			{isNoEmail && !isNoPassword && (
 				<>
-					<View style={{ paddingTop: 10 }} />
+					<CustomDivider place="top" />
 					<CustomText variant="error">Please enter an email!</CustomText>
 				</>
 			)}
 			{isNoPassword && !isNoEmail && (
 				<>
-					<View style={{ paddingTop: 10 }} />
+					<CustomDivider place="top" />
 					<CustomText variant="error">Please enter a password!</CustomText>
 				</>
 			)}
 			{isNoEmail && isNoPassword && (
 				<>
-					<View style={{ paddingTop: 10 }} />
+					<CustomDivider place="top" />
 					<CustomText variant="error">Please enter an email and a password!</CustomText>
 				</>
 			)}
 			{authError && (
 				<>
-					<View style={{ paddingTop: 10 }} />
+					<CustomDivider place="top" />
 					<CustomText variant="error">{authError}</CustomText>
 				</>
 			)}

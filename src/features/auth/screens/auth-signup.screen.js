@@ -6,6 +6,7 @@ import { CustomText } from "../../../components/utilities/custom-text.component"
 import { CustomButton } from "../../../components/utilities/custom-button.component";
 import { CustomInput } from "../../../components/utilities/custom-input.components";
 import { AuthContext } from "../../../services/auth/auth.context";
+import { CustomDivider } from "../../../components/utilities/custom-divider.component";
 
 export const SignUpScreen = ({ navigation }) => {
 	const [useremail, onChangeUserEmail] = useState(null);
@@ -80,31 +81,31 @@ export const SignUpScreen = ({ navigation }) => {
 			/>
 			{noEmail && !noPassword && (
 				<>
-					<View style={{ paddingBottom: 10 }} />
+					<CustomDivider place="top" />
 					<CustomText variant="error">Please enter an email</CustomText>
 				</>
 			)}
 			{noPassword && !noEmail && (
 				<>
-					<View style={{ paddingBottom: 10 }} />
+					<CustomDivider place="top" />
 					<CustomText variant="error">Please enter a password!</CustomText>
 				</>
 			)}
 			{!passwordOk && !noPassword && !noEmail && (
 				<>
-					<View style={{ paddingBottom: 10 }} />
+					<CustomDivider place="top" />
 					<CustomText variant="error">Passwords don't match!</CustomText>
 				</>
 			)}
 			{noPassword && noEmail && (
 				<>
-					<View style={{ paddingBottom: 10 }} />
+					<CustomDivider place="top" />
 					<CustomText variant="error">Please enter an email and password</CustomText>
 				</>
 			)}
 			{authError && (
 				<>
-					<View style={{ paddingBottom: 10 }} />
+					<CustomDivider place="top" />
 					<CustomText variant="error">{authError}</CustomText>
 				</>
 			)}
