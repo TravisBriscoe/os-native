@@ -1,3 +1,13 @@
+/**
+ *
+ * Themes and their corresponding colours.
+ *
+ * Themes:
+ * 		Black (default)
+ * 		Blue,
+ * 		Red-ish
+ */
+
 const dark = {
 	primary: "#FFFFFF",
 	secondary: "#000000",

@@ -1,3 +1,9 @@
+/**
+ *
+ * Custom ActivitySpinner with Theme Support
+ *
+ */
+
 import React, { useContext } from "react";
 import { View } from "react-native";
 import { ActivityIndicator, Colors } from "react-native-paper";

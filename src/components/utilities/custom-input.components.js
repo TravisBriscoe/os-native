@@ -1,5 +1,7 @@
 /**
  * CustomInput component
+ *
+ * props: label, inputWidth = "100%" viewWidth = "80%", orientation = "row", variant = "default"
  */
 
 import React, { useContext } from "react";
@@ -10,21 +12,27 @@ import { CustomText } from "./custom-text.component";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 
 export const CustomInput = (props) => {
-	const { label, orientation = "row", viewWidth, inputWidth, variant = "default" } = props;
+	const {
+		label,
+		inputWidth = "100%",
+		viewWidth = "80%",
+		orientation = "row",
+		variant = "default",
+	} = props;
 	const { myTheme, material, myFont, screenWidth } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
 
 	const defaultViewStyle = {
 		alignItems: "center",
 		flexDirection: orientation,
-		width: !viewWidth ? "80%" : viewWidth,
+		width: viewWidth,
 	};
 
 	const inputVariants = {
 		default: {
 			color: "#000000",
 			backgroundColor: "#FFFFFF",
-			width: inputWidth ? inputWidth : "100%",
+			width: inputWidth,
 		},
 		themed: {
 			color: !props.textColor ? currentTheme.colors[myTheme][material].primary : props.textColor,
@@ -32,7 +40,7 @@ export const CustomInput = (props) => {
 				? currentTheme.colors[myTheme][material].secondary
 				: props.bgColor,
 			fontFamily: currentTheme.fonts[myFont],
-			width: inputWidth ? inputWidth : "100%",
+			width: inputWidth,
 		},
 	};
 

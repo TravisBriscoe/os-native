@@ -1,7 +1,17 @@
-// Custom Text component
+/**
+ * Custom Text component
+ *
+ * Returns a custom text component that is styled according to theme.
+ * If no theme is available it returns a default Text component (body).
+ *
+ * props:
+ * children, style, variant = "body"
+ *
+ */
+
 //
-// Returns a custom text component that is styled according to theme.
-// If no theme is available it returns a default Text component.
+//
+
 //
 
 import React, { useContext } from "react";

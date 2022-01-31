@@ -1,9 +1,16 @@
-// Custom View and Custom SafeAreaView
-// SafeAreaView is the main view wrapper, it returns a color based on the Theme,
-// If no theme is available, it returns a color of choosing via bgColor prop
-//
-// Custom view is similar to above except it adds the themes background.
-//
+/**
+ * Custom View and Custom SafeAreaView
+ *
+ * SafeAreaView is the main view wrapper, it returns a color based on the Theme,
+ * If no theme is wanted pass bgColor prop.
+ *
+ * Custom view is similar to above except it adds the themes background.
+ *
+ * props:
+ * style, children, bgColor
+ *
+ */
+
 import React, { useContext } from "react";
 import { SafeAreaView, StatusBar, Platform } from "react-native";
 import { ThemeContext } from "styled-components/native";
