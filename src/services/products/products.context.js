@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 
-import { fetchProducts } from "./products.service";
+import { deleteProduct, fetchProducts } from "./products.service";
 import { objToArr } from "../utils/objtoarr";
 import { sortData } from "../utils/sortData";
 
@@ -20,10 +20,10 @@ export const ProductsContextProvider = (props) => {
 			setError(null);
 			setIsLoading(false);
 		});
-	}, []);
+	}, [products]);
 
 	return (
-		<ProductsContext.Provider value={{ products, isLoading, error }}>
+		<ProductsContext.Provider value={{ products, isLoading, error, deleteProduct }}>
 			{props.children}
 		</ProductsContext.Provider>
 	);

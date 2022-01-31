@@ -1,6 +1,7 @@
 import React from "react";
 import { ThemeProvider } from "styled-components/native";
 import theme from "./src/infrastructure/theme/theme";
+import { StatusBar } from "expo-status-bar";
 
 import { useFonts as useCursive } from "expo-font";
 import { useFonts as useRoboto } from "expo-font";
@@ -30,6 +31,7 @@ const App = () => {
 					</AuthContextProvider>
 				</AppSettingsContextProvider>
 			</ThemeProvider>
+			<StatusBar style="auto" />
 		</>
 	);
 };

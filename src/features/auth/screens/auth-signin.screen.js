@@ -92,7 +92,7 @@ export const LoginScreen = ({ navigation }) => {
 				disabled={authLoading}
 				style={{ opacity: authLoading ? 0.6 : 1 }}
 			/>
-			<View style={{ paddingTop: 10 }} />
+			<CustomDivider />
 			<CustomButton
 				label="Login with Facebook"
 				action={() => onFacebookLoginPressed()}
@@ -122,25 +122,25 @@ export const LoginScreen = ({ navigation }) => {
 			/>
 			{isNoEmail && !isNoPassword && (
 				<>
-					<CustomDivider place="top" />
+					<CustomDivider place="top" size="lg" />
 					<CustomText variant="error">Please enter an email!</CustomText>
 				</>
 			)}
 			{isNoPassword && !isNoEmail && (
 				<>
-					<CustomDivider place="top" />
+					<CustomDivider place="top" size="lg" />
 					<CustomText variant="error">Please enter a password!</CustomText>
 				</>
 			)}
 			{isNoEmail && isNoPassword && (
 				<>
-					<CustomDivider place="top" />
+					<CustomDivider place="top" size="xlg" />
 					<CustomText variant="error">Please enter an email and a password!</CustomText>
 				</>
 			)}
 			{authError && (
 				<>
-					<CustomDivider place="top" />
+					<CustomDivider place="top" size="lg" />
 					<CustomText variant="error">{authError}</CustomText>
 				</>
 			)}

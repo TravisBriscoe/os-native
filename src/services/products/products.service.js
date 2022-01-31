@@ -27,3 +27,12 @@ export const fetchProducts = async () => {
 
 	return productDataObj;
 };
+
+export const deleteProduct = async (id) => {
+	firestore()
+		.collection("product-list")
+		.doc(id)
+		.delete()
+		.then(() => console.log(id + " has been deleted"));
+	fetchProducts();
+};
