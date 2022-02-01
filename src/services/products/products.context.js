@@ -16,11 +16,13 @@ export const ProductsContextProvider = ({ children }) => {
 
 		setIsLoading(true);
 		fetchProducts().then((data) => {
-			const newData = sortData(objToArr(data));
+			if (dataFetching) {
+				const newData = sortData(objToArr(data));
 
-			setProducts(newData);
-			setError(null);
-			setIsLoading(false);
+				setProducts(newData);
+				setError(null);
+				setIsLoading(false);
+			}
 		});
 
 		return () => {
