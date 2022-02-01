@@ -23,7 +23,7 @@ export const CustomMainView = ({ style, children, bgColor }) => {
 	const topMargin = Platform.OS !== "ios" ? Math.floor(StatusBar.currentHeight) : null;
 
 	const backgroundStyle = {
-		backgroundColor: bgColor ? bgColor : currentTheme.colors[myTheme][material].secondary,
+		// backgroundColor: bgColor ? bgColor : currentTheme.colors[myTheme][material].secondary,
 		flex: 1,
 		marginTop: topMargin,
 	};

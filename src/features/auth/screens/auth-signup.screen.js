@@ -23,7 +23,6 @@ export const SignUpScreen = ({ navigation }) => {
 			bgColor="#FFFFFF"
 			style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
 		>
-			{!useremail && setAuthError(null)}
 			<CustomText>Email:</CustomText>
 			<TextInput
 				style={{ height: 40, margin: 12, borderWidth: 1, padding: 10, width: "80%" }}

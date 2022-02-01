@@ -40,11 +40,14 @@ export const AppNav = () => {
 					tabBarStyle: {
 						backgroundColor: currentTheme.colors[myTheme][material].secondary,
 						color: currentTheme.colors[myTheme][material].primary,
+						height: 75,
 					},
 					tabBarLabelStyle: {
 						fontFamily: currentTheme.fonts[myFont],
+						fontSize: currentTheme.fontSize[2],
+						paddingBottom: currentTheme.spacing[2],
 					},
-					tabBarIcon: ({ size, focused }) => {
+					tabBarIcon: ({ focused }) => {
 						let iconName;
 
 						if (route.name === "Products") {
@@ -60,7 +63,7 @@ export const AppNav = () => {
 						return (
 							<Ionicons
 								name={iconName}
-								size={size}
+								size={40}
 								color={currentTheme.colors[myTheme][material].primary}
 							/>
 						);

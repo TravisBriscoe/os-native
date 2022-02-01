@@ -28,7 +28,6 @@ export const LoginScreen = ({ navigation }) => {
 			bgColor="#FFFFFF"
 			style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
 		>
-			{authError && setAuthError(null)}
 			<CustomInput
 				bgColor="#FFFFFF"
 				textColor="#000000"
