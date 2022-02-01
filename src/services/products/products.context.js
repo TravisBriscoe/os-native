@@ -6,25 +6,33 @@ import { sortData } from "../utils/sortData";
 
 export const ProductsContext = createContext();
 
-export const ProductsContextProvider = (props) => {
+export const ProductsContextProvider = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState([]);
 	const [products, setProducts] = useState(null);
 
 	useEffect(() => {
+		let dataFetching = true;
+
 		setIsLoading(true);
 		fetchProducts().then((data) => {
-			const newData = sortData(objToArr(data));
+			if (dataFetching) {
+				const newData = sortData(objToArr(data));
 
-			setProducts(newData);
-			setError(null);
-			setIsLoading(false);
+				setProducts(newData);
+				setError(null);
+				setIsLoading(false);
+			}
 		});
+
+		return () => {
+			dataFetching = false;
+		};
 	}, [products]);
 
 	return (
 		<ProductsContext.Provider value={{ products, isLoading, error, deleteProduct }}>
-			{props.children}
+			{children}
 		</ProductsContext.Provider>
 	);
 };

@@ -22,7 +22,10 @@ export const AuthContextProvider = ({ children }) => {
 		setAuthLoading(true);
 		auth()
 			.createUserWithEmailAndPassword(username, password)
-			.then(() => setAuthLoading(false))
+			.then(() => {
+				setAuthLoading(false);
+				setAuthError(null);
+			})
 			.catch((err) => {
 				err.code === "auth/email-already-in-use"
 					? setAuthError("Email already in use. Please use another or sign in with that email")
@@ -42,6 +45,7 @@ export const AuthContextProvider = ({ children }) => {
 			const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
 			setAuthLoading(false);
+			setAuthError(null);
 			// Sign-in the user with the credential
 			return auth().signInWithCredential(googleCredential);
 		} catch (err) {
@@ -72,6 +76,8 @@ export const AuthContextProvider = ({ children }) => {
 			const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
 
 			setAuthLoading(false);
+			setAuthError(null);
+
 			// Sign-in the user with the credential
 			return auth().signInWithCredential(facebookCredential);
 		} catch (err) {
@@ -84,7 +90,10 @@ export const AuthContextProvider = ({ children }) => {
 		setAuthLoading(true);
 		auth()
 			.signInWithEmailAndPassword(username, password)
-			.then(() => setAuthLoading(false))
+			.then(() => {
+				setAuthLoading(false);
+				setAuthError(null);
+			})
 			.catch((err) => {
 				setAuthLoading(false);
 				setAuthError(err);

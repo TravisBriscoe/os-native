@@ -23,7 +23,6 @@ export const AuthCall = () => {
 					<AuthNav />
 				)}
 			</CustomMainView>
-			<StatusBar style={!material} />
 		</>
 	);
 };
