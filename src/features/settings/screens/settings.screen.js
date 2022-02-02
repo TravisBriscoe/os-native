@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Switch, View, Pressable } from "react-native";
 import { RadioButton } from "react-native-paper";
 import auth from "@react-native-firebase/auth";
@@ -23,6 +23,7 @@ export const SettingsScreen = () => {
 		setRestaurantName,
 		material,
 	} = useContext(AppSettingsContext);
+	const [tempRestaurantName, setTempRestaurantName] = useState(restaurantName);
 
 	const currentTheme = useContext(ThemeContext);
 
@@ -45,7 +46,8 @@ export const SettingsScreen = () => {
 				variant="themed"
 				placeholder={restaurantName}
 				style={{ borderWidth: 1, paddingLeft: 5, paddingTop: 3, paddingBottom: 3 }}
-				onEndEditing={(text) => setRestaurantName(text)}
+				onChangeText={(text) => setTempRestaurantName(text)}
+				onEndEditing={() => setRestaurantName(tempRestaurantName)}
 			/>
 			<View style={{ padding: 10 }} />
 			<View style={{ flexDirection: "row", alignItems: "center" }}>
