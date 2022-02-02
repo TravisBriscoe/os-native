@@ -44,7 +44,7 @@ export const AppNav = () => {
 					},
 					tabBarLabelStyle: {
 						fontFamily: currentTheme.fonts[myFont],
-						fontSize: currentTheme.fontSize[2],
+						fontSize: currentTheme.fontSizes[2],
 						paddingBottom: currentTheme.spacing[2],
 					},
 					tabBarIcon: ({ focused }) => {
