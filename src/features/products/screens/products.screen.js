@@ -8,14 +8,14 @@ import { ProductsContext } from "../../../services/products/products.context";
 import { Spinner } from "../../../components/utilities/activity-spinner.component";
 import { ProductList } from "../components/product-list.component";
 
-export const ProductsScreen = () => {
+export const ProductsScreen = ({ navigation }) => {
 	const { products, isLoading } = useContext(ProductsContext);
 
 	return (
 		<CustomView>
 			{isLoading && <Spinner />}
 			<CustomSearchbar />
-			<CustomFab />
+			<CustomFab action={() => navigation.navigate("AddProduct")} />
 			<FlatList data={products} renderItem={({ item }) => <ProductList product={item} />} />
 		</CustomView>
 	);

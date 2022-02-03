@@ -8,8 +8,8 @@ import { ThemeContext } from "styled-components/native";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 import { CustomView } from "../../components/utilities/custom-views.component";
 import { CustomText } from "../../components/utilities/custom-text.component";
-import { ProductsScreen } from "../../features/products/screens/products.screen";
 import { SettingsScreen } from "../../features/settings/screens/settings.screen";
+import { ProductsNav } from "./products.navigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -35,7 +35,7 @@ export const AppNav = () => {
 	return (
 		<NavigationContainer>
 			<Tab.Navigator
-				initialRouteName="Products"
+				initialRouteName="ProductsNav"
 				screenOptions={({ route }) => ({
 					tabBarStyle: {
 						backgroundColor: currentTheme.colors[myTheme][material].secondary,
@@ -50,7 +50,7 @@ export const AppNav = () => {
 					tabBarIcon: ({ focused }) => {
 						let iconName;
 
-						if (route.name === "Products") {
+						if (route.name === "ProductsNav") {
 							iconName = focused ? "fast-food" : "fast-food-outline";
 						} else if (route.name === "Recipes") {
 							iconName = focused ? "folder-open" : "folder-open-outline";
@@ -91,7 +91,7 @@ export const AppNav = () => {
 					},
 				})}
 			>
-				<Tab.Screen name="Products" component={ProductsScreen} />
+				<Tab.Screen name="ProductsNav" component={ProductsNav} options={{ title: "Products" }} />
 				<Tab.Screen name="Recipes" component={Recipes} />
 				<Tab.Screen name="OrderSheet" component={OrderSheet} />
 				<Tab.Screen name="Settings" component={SettingsScreen} />

@@ -20,6 +20,7 @@ export const CustomSearchbar = (props) => {
 				width: "90%",
 				alignSelf: "center",
 				backgroundColor: currentTheme.colors[myTheme][material].secondary,
+				paddingTop: 10,
 			}}
 			inputStyle={[
 				{

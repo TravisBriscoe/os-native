@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { List } from "react-native-paper";
+import React, { useContext, useState, useEffect } from "react";
+import { List, Checkbox } from "react-native-paper";
 import { ThemeContext } from "styled-components/native";
 import { View, Alert } from "react-native";
 
@@ -11,18 +11,21 @@ import { CustomInput } from "../../../components/utilities/custom-input.componen
 
 export const ProductList = ({ product }) => {
 	const { desc, name, unit, dist, stored, category, split, id } = product;
+	const [editProduct, setEditProduct] = useState({ id, edit: false });
+
 	const { myTheme, myFont, material } = useContext(AppSettingsContext);
-
-	const [editProduct, setEditProduct] = useState({ product: { edit: false } });
-
-	const currentTheme = useContext(ThemeContext);
 	const { deleteProduct } = useContext(ProductsContext);
+	const currentTheme = useContext(ThemeContext);
 
 	const titleStyle = {
 		backgroundColor: currentTheme.colors[myTheme][material].secondary,
 		color: currentTheme.colors[myTheme][material].primary,
 		fontFamily: currentTheme.fonts[myFont],
 	};
+
+	// useEffect(() => {
+	// 	console.log(editProduct);
+	// }, [editProduct]);
 
 	return (
 		<List.Section>
@@ -41,18 +44,29 @@ export const ProductList = ({ product }) => {
 				}}
 				style={titleStyle}
 			>
-				{(desc || editProduct.product.edit) && (
+				{(desc || editProduct.edit) && (
 					<List.Item
 						title="Description"
 						titleStyle={titleStyle}
 						right={() =>
-							editProduct.product.edit && editProduct.product.edit ? (
+							editProduct.edit ? (
 								<CustomInput
 									orientation="column"
 									inputWidth="80%"
 									viewWidth="75%"
 									placeholder={desc}
-									style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+									style={{
+										flex: 1,
+										alignItems: "center",
+										justifyContent: "center",
+										textAlign: "right",
+									}}
+									onChangeText={(text) =>
+										setEditProduct({
+											...editProduct,
+											desc: text,
+										})
+									}
 								/>
 							) : (
 								<CustomText>{desc}</CustomText>
@@ -63,18 +77,29 @@ export const ProductList = ({ product }) => {
 						underlayColor="red"
 					/>
 				)}
-				{(unit || editProduct.product.edit) && (
+				{(unit || editProduct.edit) && (
 					<List.Item
 						title="Unit"
 						titleStyle={titleStyle}
 						right={() =>
-							editProduct.product.edit && editProduct.product.edit ? (
+							editProduct.edit ? (
 								<CustomInput
 									orientation="column"
 									inputWidth="80%"
 									viewWidth="75%"
 									placeholder={unit}
-									style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+									style={{
+										flex: 1,
+										alignItems: "center",
+										justifyContent: "center",
+										textAlign: "right",
+									}}
+									onChangeText={(text) =>
+										setEditProduct({
+											...editProduct,
+											unit: text,
+										})
+									}
 								/>
 							) : (
 								<CustomText>{unit}</CustomText>
@@ -82,18 +107,29 @@ export const ProductList = ({ product }) => {
 						}
 					/>
 				)}
-				{(dist || editProduct.product.edit) && (
+				{(dist || editProduct.edit) && (
 					<List.Item
 						title="Distributor"
 						titleStyle={titleStyle}
 						right={() =>
-							editProduct.product.edit && editProduct.product.edit ? (
+							editProduct.edit ? (
 								<CustomInput
 									orientation="column"
 									inputWidth="80%"
 									viewWidth="75%"
 									placeholder={dist}
-									style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+									style={{
+										flex: 1,
+										alignItems: "center",
+										justifyContent: "center",
+										textAlign: "right",
+									}}
+									onChangeText={(text) =>
+										setEditProduct({
+											...editProduct,
+											dist: text,
+										})
+									}
 								/>
 							) : (
 								<CustomText>{dist}</CustomText>
@@ -101,18 +137,29 @@ export const ProductList = ({ product }) => {
 						}
 					/>
 				)}
-				{(stored || editProduct.product.edit) && (
+				{(stored || editProduct.edit) && (
 					<List.Item
 						title="Stored"
 						titleStyle={titleStyle}
 						right={() =>
-							editProduct.product.edit && editProduct.product.edit ? (
+							editProduct.edit ? (
 								<CustomInput
 									orientation="column"
 									inputWidth="80%"
 									viewWidth="75%"
 									placeholder={stored}
-									style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+									style={{
+										flex: 1,
+										alignItems: "center",
+										justifyContent: "center",
+										textAlign: "right",
+									}}
+									onChangeText={(text) =>
+										setEditProduct({
+											...editProduct,
+											stored: text,
+										})
+									}
 								/>
 							) : (
 								<CustomText>{stored}</CustomText>
@@ -120,18 +167,29 @@ export const ProductList = ({ product }) => {
 						}
 					/>
 				)}
-				{(category || editProduct.product.edit) && (
+				{(category || editProduct.edit) && (
 					<List.Item
 						title="Category"
 						titleStyle={titleStyle}
 						right={() =>
-							editProduct.product.edit && editProduct.product.edit ? (
+							editProduct.edit ? (
 								<CustomInput
 									orientation="column"
 									inputWidth="80%"
 									viewWidth="75%"
 									placeholder={category}
-									style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+									style={{
+										flex: 1,
+										alignItems: "center",
+										justifyContent: "center",
+										textAlign: "right",
+									}}
+									onChangeText={(text) =>
+										setEditProduct({
+											...editProduct,
+											category: text,
+										})
+									}
 								/>
 							) : (
 								<CustomText>{category}</CustomText>
@@ -139,15 +197,20 @@ export const ProductList = ({ product }) => {
 						}
 					/>
 				)}
-				{split || editProduct.product.edit ? (
+				{split || editProduct.edit ? (
 					<List.Item
 						title="Split"
 						titleStyle={titleStyle}
-						right={() => (
-							<CustomText style={{ color: split ? "green" : "red", fontStyle: "italic" }}>
-								{split ? "Yes!" : "No!"}
-							</CustomText>
-						)}
+						right={() =>
+							editProduct.edit ? (
+								<Checkbox
+									status={editProduct.split ? "checked" : "unchecked"}
+									onPress={() => setEditProduct({ ...editProduct, split: !editProduct.split })}
+								/>
+							) : (
+								<CustomText style={{ color: "green", fontStyle: "italic" }}>Yes!</CustomText>
+							)
+						}
 					/>
 				) : null}
 				<View
@@ -165,52 +228,50 @@ export const ProductList = ({ product }) => {
 							justifyContent: "center",
 						}}
 					>
-						{editProduct.product.edit && editProduct.product.edit ? (
+						{editProduct.edit ? (
 							<CustomButton
-								label="Save"
 								variant="themed"
-								action={() =>
-									setEditProduct({
-										product: {
-											id,
-											edit: false,
-										},
-									})
-								}
+								label="Cancel"
+								style={{ marginRight: 5 }}
+								action={() => setEditProduct({ id, edit: false })}
 							/>
 						) : (
 							<CustomButton
 								variant="themed"
 								label="Edit"
 								style={{ marginRight: 5 }}
+								action={() => setEditProduct({ ...editProduct, edit: true })}
+							/>
+						)}
+						{editProduct.edit ? (
+							<CustomButton
+								label="Save"
+								variant="themed"
+								action={() => setEditProduct({ ...editProduct, edit: false })}
+							/>
+						) : (
+							<CustomButton
+								variant="themed"
+								label="Delete"
+								style={{ marginLeft: 5 }}
 								action={() => {
-									setEditProduct({
-										product: {
-											id,
-											edit: true,
-										},
-									});
-									console.log(editProduct);
+									Alert.alert(
+										"Delete " + name + "?",
+										"\nAre you sure?\nThis operation cannot be undone.",
+										[
+											{
+												text: "Confirm",
+												onPress: () => deleteProduct(product.id),
+											},
+											{
+												text: "Cancel",
+												onPress: () => null,
+											},
+										]
+									);
 								}}
 							/>
 						)}
-						<CustomButton
-							variant="themed"
-							label="Delete"
-							style={{ marginLeft: 5 }}
-							action={() => {
-								Alert.alert("Delete " + name + "?", null, [
-									{
-										text: "Confirm",
-										onPress: () => deleteProduct(product.id),
-									},
-									{
-										text: "Cancel",
-										onPress: () => null,
-									},
-								]);
-							}}
-						/>
 					</View>
 				</View>
 			</List.Accordion>
