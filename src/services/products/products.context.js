@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 
-import { deleteProduct, fetchProducts } from "./products.service";
+import { deleteProduct, fetchProducts, updateProduct, addNewProduct } from "./products.service";
 import { objToArr } from "../utils/objtoarr";
 import { sortData } from "../utils/sortData";
 
@@ -30,8 +30,51 @@ export const ProductsContextProvider = ({ children }) => {
 		};
 	}, [products]);
 
+	const onDeleteProduct = async (id) => {
+		setIsLoading(true);
+		try {
+			deleteProduct(id).then(() => {
+				setError(null);
+				setIsLoading(false);
+			});
+		} catch (err) {
+			setError(err);
+			setIsLoading(false);
+		}
+	};
+
+	const onUpdateProduct = (id, data) => {
+		setIsLoading(true);
+
+		updateProduct(id, data)
+			.then(() => {
+				setIsLoading(false);
+				setError(null);
+			})
+			.catch((err) => {
+				setIsLoading(false);
+				setError(err);
+			});
+	};
+
+	const onAddNewProduct = (id, data) => {
+		setIsLoading(true);
+
+		addNewProduct(id, data)
+			.then(() => {
+				setIsLoading(false);
+				setError(null);
+			})
+			.catch((err) => {
+				setIsLoading(false);
+				setError(err);
+			});
+	};
+
 	return (
-		<ProductsContext.Provider value={{ products, isLoading, error, deleteProduct }}>
+		<ProductsContext.Provider
+			value={{ products, isLoading, error, onDeleteProduct, onUpdateProduct, onAddNewProduct }}
+		>
 			{children}
 		</ProductsContext.Provider>
 	);

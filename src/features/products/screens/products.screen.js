@@ -5,7 +5,7 @@ import { CustomFab } from "../../../components/utilities/custom-fab.component";
 import { CustomView } from "../../../components/utilities/custom-views.component";
 import { CustomSearchbar } from "../../../components/utilities/custom-searchbar.component";
 import { ProductsContext } from "../../../services/products/products.context";
-import { Spinner } from "../../../components/utilities/activity-spinner.component";
+import { CustomSpinner } from "../../../components/utilities/custom-spinner.component";
 import { ProductList } from "../components/product-list.component";
 
 export const ProductsScreen = ({ navigation }) => {
@@ -13,7 +13,7 @@ export const ProductsScreen = ({ navigation }) => {
 
 	return (
 		<CustomView>
-			{isLoading && <Spinner />}
+			{isLoading && <CustomSpinner />}
 			<CustomSearchbar />
 			<CustomFab action={() => navigation.navigate("AddProduct")} />
 			<FlatList data={products} renderItem={({ item }) => <ProductList product={item} />} />

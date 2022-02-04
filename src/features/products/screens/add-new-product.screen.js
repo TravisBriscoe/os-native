@@ -9,9 +9,8 @@ import { Checkbox } from "react-native-paper";
 import { CustomText } from "../../../components/utilities/custom-text.component";
 
 import { ProductsContext } from "../../../services/products/products.context";
-import { deleteProduct } from "../../../services/products/products.service";
 
-export const AddProduct = () => {
+export const AddProduct = ({ navigation }) => {
 	const [newName, setNewName] = useState("");
 	const [newDesc, setNewDesc] = useState("");
 	const [newDist, setNewDist] = useState("");
@@ -20,7 +19,7 @@ export const AddProduct = () => {
 	const [newStored, setNewStored] = useState("");
 	const [newSplit, setNewSplit] = useState(false);
 
-	const { products } = useContext(ProductsContext);
+	const { products, onAddNewProduct, error, setError } = useContext(ProductsContext);
 
 	return (
 		<CustomView style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -107,6 +106,8 @@ export const AddProduct = () => {
 					variant="themed"
 					label="Save"
 					action={() => {
+						if (!newName || !newDist) return setError("Must have Name and Distributor!");
+
 						const newItem = {
 							name: newName,
 							desc: newDesc,
@@ -117,9 +118,13 @@ export const AddProduct = () => {
 							dist: newDist,
 							id: `U${products.length + 1}`,
 						};
-						// addNewProduct(newItem.id, newItem);
+
+						onAddNewProduct(newItem.id, newItem);
+						setError(null);
+						navigation.navigate("products");
 					}}
 				/>
+				{error && <CustomText variant="error">{error}</CustomText>}
 			</View>
 		</CustomView>
 	);

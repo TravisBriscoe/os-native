@@ -33,6 +33,26 @@ export const deleteProduct = async (id) => {
 		.collection("product-list")
 		.doc(id)
 		.delete()
-		.then(() => console.log(id + " has been deleted"));
+		// .then(() => fetchProducts())
+		.catch((err) => new Error("Error: " + err));
+
 	fetchProducts();
+};
+
+export const updateProduct = async (id, data) => {
+	firestore()
+		.collection("product-list")
+		.doc(id)
+		.update(data)
+		.then(() => fetchProducts())
+		.catch((err) => new Error("Error: " + err));
+};
+
+export const addNewProduct = async (id, data) => {
+	firestore()
+		.collection("product-list")
+		.doc(id)
+		.set(data)
+		.then(() => fetchProducts())
+		.catch((err) => new Error("Error: " + err));
 };

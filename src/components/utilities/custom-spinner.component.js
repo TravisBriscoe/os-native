@@ -12,7 +12,7 @@ import styled, { ThemeContext } from "styled-components/native";
 import { CustomText } from "./custom-text.component";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 
-export const Spinner = () => {
+export const CustomSpinner = () => {
 	const { myTheme, material, myFont } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
 
@@ -23,6 +23,8 @@ export const Spinner = () => {
 		position: absolute;
 		top: ${halfHeight}px;
 		left: ${halfWidth}px;
+		elevation: 3;
+		z-index: 3;
 	`;
 
 	return (
@@ -36,7 +38,7 @@ export const Spinner = () => {
 				}
 				size={125}
 			/>
-			<View
+			{/* <View
 				style={{
 					position: "absolute",
 					paddingTop: currentTheme.spacing[7] + currentTheme.spacing[2],
@@ -61,7 +63,7 @@ export const Spinner = () => {
 				>
 					Data...
 				</CustomText>
-			</View>
+			</View> */}
 		</LoadingContainer>
 	);
 };
