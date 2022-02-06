@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 
-import { deleteProduct, fetchProducts, updateProduct, addNewProduct } from "./products.service";
+import firestoreUtils from "../utils/firestoreUtils";
 import { objToArr } from "../utils/objtoarr";
 import { sortData } from "../utils/sortData";
 
@@ -15,7 +15,7 @@ export const ProductsContextProvider = ({ children }) => {
 		let dataFetching = true;
 
 		setIsLoading(true);
-		fetchProducts().then((data) => {
+		firestoreUtils.fetchCollection("product-list").then((data) => {
 			if (dataFetching) {
 				const newData = sortData(objToArr(data));
 
@@ -33,7 +33,7 @@ export const ProductsContextProvider = ({ children }) => {
 	const onDeleteProduct = async (id) => {
 		setIsLoading(true);
 		try {
-			deleteProduct(id).then(() => {
+			firestoreUtils.deleteData("product-list", id).then(() => {
 				setError(null);
 				setIsLoading(false);
 			});
@@ -46,7 +46,8 @@ export const ProductsContextProvider = ({ children }) => {
 	const onUpdateProduct = (id, data) => {
 		setIsLoading(true);
 
-		updateProduct(id, data)
+		firestoreUtils
+			.updateData("product-list", id, data)
 			.then(() => {
 				setIsLoading(false);
 				setError(null);
@@ -60,7 +61,8 @@ export const ProductsContextProvider = ({ children }) => {
 	const onAddNewProduct = (id, data) => {
 		setIsLoading(true);
 
-		addNewProduct(id, data)
+		firestoreUtils
+			.addData("product-list", id, data)
 			.then(() => {
 				setIsLoading(false);
 				setError(null);

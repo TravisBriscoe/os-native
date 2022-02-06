@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 
-import { fetchRecipes } from "./recipes.service";
-
+import firestoreUtils from "../utils/firestoreUtils";
 import { objToArr } from "../utils/objtoarr";
 
 export const RecipesContext = createContext();
@@ -15,7 +14,7 @@ export const RecipesContextProvider = ({ children }) => {
 		let fetchingRecipes = true;
 
 		setIsLoading(true);
-		fetchRecipes().then((data) => {
+		firestoreUtils.fetchCollection("recipe-list").then((data) => {
 			if (fetchingRecipes) {
 				const newData = objToArr(data);
 
@@ -29,6 +28,21 @@ export const RecipesContextProvider = ({ children }) => {
 			fetchingRecipes = false;
 		};
 	}, [recipes]);
+
+	onDeleteRecipe = (id) => {
+		setIsLoading(true);
+
+		firestoreUtils
+			.deleteData("recipe-list", id)
+			.then(() => {
+				setError(null);
+				setIsLoading(false);
+			})
+			.catch((err) => {
+				setError(err);
+				setIsLoading(false);
+			});
+	};
 
 	return (
 		<RecipesContext.Provider

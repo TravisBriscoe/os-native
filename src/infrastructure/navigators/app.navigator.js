@@ -10,16 +10,10 @@ import { CustomView } from "../../components/utilities/custom-views.component";
 import { CustomText } from "../../components/utilities/custom-text.component";
 import { SettingsScreen } from "../../features/settings/screens/settings.screen";
 import { ProductsNav } from "./products.navigator";
+import { RecipesNav } from "./recipes.navigator";
 
 const Tab = createBottomTabNavigator();
 
-const Recipes = () => {
-	return (
-		<CustomView>
-			<CustomText>Recipes</CustomText>
-		</CustomView>
-	);
-};
 const OrderSheet = () => {
 	return (
 		<CustomView>
@@ -52,7 +46,7 @@ export const AppNav = () => {
 
 						if (route.name === "ProductsNav") {
 							iconName = focused ? "fast-food" : "fast-food-outline";
-						} else if (route.name === "Recipes") {
+						} else if (route.name === "RecipesNav") {
 							iconName = focused ? "folder-open" : "folder-open-outline";
 						} else if (route.name === "OrderSheet") {
 							iconName = focused ? "paper-plane" : "paper-plane-outline";
@@ -92,7 +86,7 @@ export const AppNav = () => {
 				})}
 			>
 				<Tab.Screen name="ProductsNav" component={ProductsNav} options={{ title: "Products" }} />
-				<Tab.Screen name="Recipes" component={Recipes} />
+				<Tab.Screen name="RecipesNav" component={RecipesNav} options={{ title: "Recipes" }} />
 				<Tab.Screen name="OrderSheet" component={OrderSheet} />
 				<Tab.Screen name="Settings" component={SettingsScreen} />
 			</Tab.Navigator>

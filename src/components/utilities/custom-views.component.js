@@ -12,7 +12,7 @@
  */
 
 import React, { useContext } from "react";
-import { SafeAreaView, StatusBar, Platform } from "react-native";
+import { SafeAreaView, StatusBar, Platform, View } from "react-native";
 import { ThemeContext } from "styled-components/native";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 
