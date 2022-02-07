@@ -11,6 +11,7 @@ import { CustomText } from "../../components/utilities/custom-text.component";
 import { SettingsScreen } from "../../features/settings/screens/settings.screen";
 import { ProductsNav } from "./products.navigator";
 import { RecipesNav } from "./recipes.navigator";
+import { OrderListScreen } from "../../features/orderlist/screens/orderlist.screen";
 
 const Tab = createBottomTabNavigator();
 
@@ -87,7 +88,7 @@ export const AppNav = () => {
 			>
 				<Tab.Screen name="ProductsNav" component={ProductsNav} options={{ title: "Products" }} />
 				<Tab.Screen name="RecipesNav" component={RecipesNav} options={{ title: "Recipes" }} />
-				<Tab.Screen name="OrderSheet" component={OrderSheet} />
+				<Tab.Screen name="OrderSheet" component={OrderListScreen} />
 				<Tab.Screen name="Settings" component={SettingsScreen} />
 			</Tab.Navigator>
 		</NavigationContainer>

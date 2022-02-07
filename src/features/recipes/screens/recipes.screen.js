@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { FlatList, TouchableOpacity, Text } from "react-native";
 
-import { RecipesContext } from "../../../services/recipes/recipes.context";
 import { CustomView } from "../../../components/utilities/custom-views.component";
 import { CustomDivider } from "../../../components/utilities/custom-divider.component";
 import { CustomSpinner } from "../../../components/utilities/custom-spinner.component";
+import { CustomFab } from "../../../components/utilities/custom-fab.component";
+import { RecipesContext } from "../../../services/recipes/recipes.context";
 
 export const RecipesScreen = ({ navigation }) => {
 	const { isLoading, error, recipes } = useContext(RecipesContext);
@@ -19,6 +20,7 @@ export const RecipesScreen = ({ navigation }) => {
 		>
 			{isLoading && <CustomSpinner />}
 			{error && <Text style={{ color: "red", textStyle: "italic" }}>{error}</Text>}
+			<CustomFab action={() => navigation.navigate("AddRecipe")} />
 			<CustomDivider place="bottom" size="med" />
 			<FlatList
 				data={recipes}

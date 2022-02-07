@@ -23,8 +23,6 @@ export const CustomSpinner = () => {
 		position: absolute;
 		top: ${halfHeight}px;
 		left: ${halfWidth}px;
-		elevation: 3;
-		z-index: 3;
 	`;
 
 	return (

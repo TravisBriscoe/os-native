@@ -18,7 +18,9 @@ export const CustomInput = (props) => {
 		viewWidth = "80%",
 		orientation = "row",
 		variant = "default",
+		viewStyle,
 	} = props;
+
 	const { myTheme, material, myFont, screenWidth } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
 
@@ -33,6 +35,7 @@ export const CustomInput = (props) => {
 			color: "#000000",
 			backgroundColor: "#FFFFFF",
 			width: inputWidth,
+			borderWidth: 1,
 		},
 		themed: {
 			color: !props.textColor ? currentTheme.colors[myTheme][material].primary : props.textColor,
@@ -41,6 +44,8 @@ export const CustomInput = (props) => {
 				: props.bgColor,
 			fontFamily: currentTheme.fonts[myFont],
 			width: inputWidth,
+			borderWidth: 1,
+			borderColor: currentTheme.colors[myTheme][material].primary,
 		},
 	};
 
@@ -58,7 +63,7 @@ export const CustomInput = (props) => {
 		: "#616161";
 
 	return (
-		<View style={defaultViewStyle}>
+		<View style={[defaultViewStyle, viewStyle]}>
 			{label ? (
 				<CustomText style={[{ paddingRight: 10 }, textVariants[variant]]}>{label}</CustomText>
 			) : null}
