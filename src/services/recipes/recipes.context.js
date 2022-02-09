@@ -13,9 +13,9 @@ export const RecipesContextProvider = ({ children }) => {
 	useEffect(() => {
 		let fetchingRecipes = true;
 
-		setIsLoading(true);
 		firestoreUtils.fetchCollection("recipe-list").then((data) => {
 			if (fetchingRecipes) {
+				setIsLoading(true);
 				const newData = objToArr(data);
 
 				setRecipes(newData);
@@ -50,6 +50,7 @@ export const RecipesContextProvider = ({ children }) => {
 				isLoading,
 				error,
 				recipes,
+				setRecipes,
 			}}
 		>
 			{children}

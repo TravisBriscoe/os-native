@@ -13,7 +13,7 @@ import { CustomText } from "./custom-text.component";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 
 export const CustomButton = (props) => {
-	const { style, action, label, size = 100, variant = "default" } = props;
+	const { style, action, label, size = 100, variant = "default", border } = props;
 	const { myTheme, material } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
 
@@ -45,7 +45,7 @@ export const CustomButton = (props) => {
 	return (
 		<TouchableOpacity
 			{...props}
-			style={[constantStyle, buttonVariants[variant], style]}
+			style={[border, constantStyle, buttonVariants[variant], style]}
 			onPress={action}
 		>
 			<CustomText style={textVariants[variant]}>{label}</CustomText>

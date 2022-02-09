@@ -7,6 +7,8 @@ import { useFonts as useCursive } from "expo-font";
 import { useFonts as useRoboto } from "expo-font";
 
 import { AuthContextProvider } from "./src/services/auth/auth.context";
+import { ProductsContextProvider } from "./src/services/products/products.context";
+import { RecipesContextProvider } from "./src/services/recipes/recipes.context";
 import { AppSettingsContextProvider } from "./src/services/app-settings/app-settings.context";
 import { AuthCall } from "./src/features/auth/components/auth-call.component";
 
@@ -25,11 +27,15 @@ const App = () => {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<AppSettingsContextProvider>
-					<AuthContextProvider>
-						<AuthCall />
-					</AuthContextProvider>
-				</AppSettingsContextProvider>
+				<AuthContextProvider>
+					<AppSettingsContextProvider>
+						<ProductsContextProvider>
+							<RecipesContextProvider>
+								<AuthCall />
+							</RecipesContextProvider>
+						</ProductsContextProvider>
+					</AppSettingsContextProvider>
+				</AuthContextProvider>
 			</ThemeProvider>
 			<StatusBar style="auto" />
 		</>

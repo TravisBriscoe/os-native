@@ -5,6 +5,8 @@ import { CustomView } from "../../../components/utilities/custom-views.component
 import { CustomDivider } from "../../../components/utilities/custom-divider.component";
 import { CustomSpinner } from "../../../components/utilities/custom-spinner.component";
 import { CustomFab } from "../../../components/utilities/custom-fab.component";
+import { CustomText } from "../../../components/utilities/custom-text.component";
+import { CustomButton } from "../../../components/utilities/custom-button.component";
 import { RecipesContext } from "../../../services/recipes/recipes.context";
 
 export const RecipesScreen = ({ navigation }) => {
@@ -27,12 +29,13 @@ export const RecipesScreen = ({ navigation }) => {
 				initialNumToRender={20}
 				keyExtractor={(item, index) => index}
 				renderItem={({ item }) => (
-					<TouchableOpacity
-						style={{ paddingBottom: 5 }}
+					<CustomButton
+						label={item.name}
+						style={{ paddingBottom: 5, width: "100%" }}
 						onPress={() => navigation.navigate(`recipe-${item.id}`)}
-					>
-						<Text>{item.name}</Text>
-					</TouchableOpacity>
+					/>
+					// 	<CustomText variant="theme">{item.name}</CustomText>
+					// </TouchableOpacity>
 				)}
 			/>
 		</CustomView>

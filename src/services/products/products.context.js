@@ -10,30 +10,43 @@ export const ProductsContextProvider = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState([]);
 	const [products, setProducts] = useState(null);
+	const [orderList, setOrderList] = useState(null);
 
 	useEffect(() => {
 		let dataFetching = true;
 
-		setIsLoading(true);
-		firestoreUtils.fetchCollection("product-list").then((data) => {
-			if (dataFetching) {
-				const newData = sortData(objToArr(data));
+		if (dataFetching) {
+			firestoreUtils
+				.fetchCollection("order-list")
+				.then((data) => {
+					setIsLoading(true);
+					setOrderList(data);
+					setError(null);
+				})
+				.then(() => {
+					firestoreUtils.fetchCollection("product-list").then((data) => {
+						setProducts(sortData(objToArr(data)));
 
-				setProducts(newData);
-				setError(null);
-				setIsLoading(false);
-			}
-		});
+						setError(null);
+						setIsLoading(false);
+					});
+				})
+				.catch((err) => {
+					setError(err);
+					setIsLoading(false);
+				});
+		}
 
 		return () => {
 			dataFetching = false;
+			setIsLoading(false);
 		};
-	}, [products]);
+	}, []);
 
 	const onDeleteProduct = async (id) => {
-		setIsLoading(true);
 		try {
 			firestoreUtils.deleteData("product-list", id).then(() => {
+				setIsLoading(true);
 				setError(null);
 				setIsLoading(false);
 			});
@@ -44,13 +57,12 @@ export const ProductsContextProvider = ({ children }) => {
 	};
 
 	const onUpdateProduct = (id, data) => {
-		setIsLoading(true);
-
 		firestoreUtils
 			.updateData("product-list", id, data)
 			.then(() => {
-				setIsLoading(false);
+				setIsLoading(true);
 				setError(null);
+				setIsLoading(false);
 			})
 			.catch((err) => {
 				setIsLoading(false);
@@ -59,13 +71,12 @@ export const ProductsContextProvider = ({ children }) => {
 	};
 
 	const onAddNewProduct = (id, data) => {
-		setIsLoading(true);
-
 		firestoreUtils
 			.addData("product-list", id, data)
 			.then(() => {
-				setIsLoading(false);
+				setIsLoading(true);
 				setError(null);
+				setIsLoading(false);
 			})
 			.catch((err) => {
 				setIsLoading(false);
@@ -73,9 +84,34 @@ export const ProductsContextProvider = ({ children }) => {
 			});
 	};
 
+	const onAddToOrder = (id, data) => {
+		firestoreUtils
+			.addData("order-sheet", id, data)
+			.then(() => {
+				setIsLoading(true);
+				setError(null);
+				setIsLoading(false);
+			})
+			.catch((err) => {
+				setError(err);
+				setIsLoading(false);
+			});
+	};
+
 	return (
 		<ProductsContext.Provider
-			value={{ products, isLoading, error, onDeleteProduct, onUpdateProduct, onAddNewProduct }}
+			value={{
+				isLoading,
+				error,
+				products,
+				orderList,
+				setOrderList,
+				setProducts,
+				onDeleteProduct,
+				onUpdateProduct,
+				onAddNewProduct,
+				onAddToOrder,
+			}}
 		>
 			{children}
 		</ProductsContext.Provider>

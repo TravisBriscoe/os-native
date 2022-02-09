@@ -6,20 +6,39 @@ import { View, Alert } from "react-native";
 import { CustomText } from "../../../components/utilities/custom-text.component";
 import { AppSettingsContext } from "../../../services/app-settings/app-settings.context";
 import { CustomButton } from "../../../components/utilities/custom-button.component";
-import { ProductsContext } from "../../../services/products/products.context";
 import { CustomInput } from "../../../components/utilities/custom-input.components";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { CustomDivider } from "../../../components/utilities/custom-divider.component";
+import { CustomView } from "../../../components/utilities/custom-views.component";
+import { ProductsContext } from "../../../services/products/products.context";
 
-export const ProductList = ({ product }) => {
+export const ProductList = ({ product = {} }) => {
+	const { myTheme, myFont, material } = useContext(AppSettingsContext);
+	const { onDeleteProduct, onUpdateProduct, error, onAddProductToOrder, orderList } =
+		useContext(ProductsContext);
+	const currentTheme = useContext(ThemeContext);
+
 	const { desc, name, unit, dist, stored, category, split, id } = product;
 	const [editProduct, setEditProduct] = useState({ id, edit: false });
-	const [addToOrderSheet, setAddToOrderSheet] = useState(0);
-	// const [productExpanded, setProductExpanded] = useState({ id });
+	const [addToOrderList, setAddToOrderList] = useState({ ...orderList });
 
-	const { myTheme, myFont, material } = useContext(AppSettingsContext);
-	const { onDeleteProduct, onUpdateProduct, isLoading, error } = useContext(ProductsContext);
-	const currentTheme = useContext(ThemeContext);
+	// const [productExpanded, setProductExpanded] = useState({ id });
+	// useEffect(() => {
+	// 	if (orderList) {
+	// 		orderList.map((order) => {
+	// 			const {
+	// 				id,
+	// 				data: { value },
+	// 			} = order;
+
+	// 			setAddToOrderList((prevState) => {
+	// 				return { ...prevState, [id]: { value } };
+	// 			});
+	// 		});
+	// 	}
+
+	// 	console.log(addToOrderList);
+	// 	console.log(orderList);
+	// }, []);
 
 	const titleStyle = {
 		backgroundColor: currentTheme.colors[myTheme][material].secondary,
@@ -32,7 +51,7 @@ export const ProductList = ({ product }) => {
 	// }, [editProduct]);
 
 	return (
-		<>
+		<CustomView style={{ flexDirection: "row" }}>
 			<List.Section style={{ width: "90%" }}>
 				<List.Accordion
 					title={<CustomText>{name}</CustomText>}
@@ -307,8 +326,21 @@ export const ProductList = ({ product }) => {
 					</View>
 				</List.Accordion>
 			</List.Section>
-			<CustomDivider place="top" size="sm" />
-			<CustomInput />
-		</>
+			<CustomInput
+				variant="themed"
+				orientation="column"
+				viewWidth="8%"
+				style={{ padding: 5, textAlign: "right" }}
+				viewStyle={{ paddingTop: 25 }}
+				defaultValue={addToOrderList[id] ? addToOrderList[id].data.value.toString() : "0"}
+				// value={addToOrderList[id].value.toString()}
+				// // onChangeText={(text) => {
+				//		setAddToOrderSheet({[id]: {value: text}});
+				// }}
+				// onEndEditing={() => {
+				//		onAddToOrderSheet(id, addToOrderSheet[id].value);
+				// }}
+			/>
+		</CustomView>
 	);
 };

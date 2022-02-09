@@ -23,9 +23,10 @@ export const SettingsScreen = () => {
 		setRestaurantName,
 		material,
 	} = useContext(AppSettingsContext);
-	const [tempRestaurantName, setTempRestaurantName] = useState(restaurantName);
 
 	const currentTheme = useContext(ThemeContext);
+
+	const [tempRestaurantName, setTempRestaurantName] = useState(restaurantName);
 
 	return (
 		<CustomView style={{ alignItems: "center", justifyContent: "center" }}>
