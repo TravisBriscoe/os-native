@@ -43,7 +43,7 @@ export const fetchCollection = async (collection) => {
 	const collectionName =
 		collection === "product-list"
 			? "Product List"
-			: collection === "order-sheet"
+			: collection === "order-list"
 			? "Order Sheet"
 			: collection === "recipe-list" && "Recipes List";
 
@@ -52,6 +52,7 @@ export const fetchCollection = async (collection) => {
 			.collection(collection)
 			.get()
 			.then((querySnapshot) => {
+				console.log(collection);
 				querySnapshot.docs.map((doc) => {
 					const { id } = doc.data();
 
@@ -62,7 +63,7 @@ export const fetchCollection = async (collection) => {
 					return dataObj;
 				});
 
-				return dataObj;
+				// return dataObj;
 			});
 	} catch (err) {
 		console.log(`${collectionName} couldn't fetch: ${err.message}`);

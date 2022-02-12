@@ -89,6 +89,7 @@ export const AddProduct = ({ navigation }) => {
 			<CustomDivider />
 			<View style={{ flexDirection: "row", alignItems: "center" }}>
 				<CustomButton
+					labelText
 					label="Clear"
 					variant="themed"
 					action={() => {
@@ -103,6 +104,7 @@ export const AddProduct = ({ navigation }) => {
 				/>
 				<CustomDivider place="right" />
 				<CustomButton
+					labelText
 					variant="themed"
 					label="Save"
 					action={() => {

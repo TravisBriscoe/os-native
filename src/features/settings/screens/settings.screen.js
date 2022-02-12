@@ -31,6 +31,7 @@ export const SettingsScreen = () => {
 	return (
 		<CustomView style={{ alignItems: "center", justifyContent: "center" }}>
 			<CustomButton
+				labelText
 				label="Sign Out"
 				size={200}
 				variant="themed"

@@ -58,6 +58,7 @@ export const SignUpScreen = ({ navigation }) => {
 				onChangeText={(text) => onChangeConfirmPassword(text)}
 			/>
 			<CustomButton
+				labelText
 				disabled={authLoading}
 				label="Signup!"
 				bgColor="blue"

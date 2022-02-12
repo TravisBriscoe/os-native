@@ -31,13 +31,13 @@ export const CustomMainView = ({ style, children, bgColor }) => {
 	return <SafeAreaView style={[backgroundStyle, style]}>{children}</SafeAreaView>;
 };
 
-export const CustomView = ({ children, style, bgColor }) => {
+export const CustomView = ({ children, style, bgColor, header }) => {
 	const { myTheme, material } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
 
 	const backgroundStyle = {
 		backgroundColor: bgColor ? bgColor : currentTheme.colors[myTheme][material].secondary,
-		flex: 1,
+		flex: !header ? 1 : null,
 	};
 
 	return <SafeAreaView style={[backgroundStyle, style]}>{children}</SafeAreaView>;

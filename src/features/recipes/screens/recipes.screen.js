@@ -8,9 +8,11 @@ import { CustomFab } from "../../../components/utilities/custom-fab.component";
 import { CustomText } from "../../../components/utilities/custom-text.component";
 import { CustomButton } from "../../../components/utilities/custom-button.component";
 import { RecipesContext } from "../../../services/recipes/recipes.context";
+import { objToArr } from "../../../services/utils/objtoarr";
 
 export const RecipesScreen = ({ navigation }) => {
 	const { isLoading, error, recipes } = useContext(RecipesContext);
+	const newRecipes = objToArr(recipes.data);
 
 	return (
 		<CustomView
@@ -25,14 +27,17 @@ export const RecipesScreen = ({ navigation }) => {
 			<CustomFab action={() => navigation.navigate("AddRecipe")} />
 			<CustomDivider place="bottom" size="med" />
 			<FlatList
-				data={recipes}
+				data={newRecipes}
 				initialNumToRender={20}
 				keyExtractor={(item, index) => index}
 				renderItem={({ item }) => (
 					<CustomButton
+						labelText
+						variant="themed"
+						recipe
 						label={item.name}
 						style={{ paddingBottom: 5, width: "100%" }}
-						onPress={() => navigation.navigate(`recipe-${item.id}`)}
+						action={() => navigation.navigate(`recipe-${item.id}`)}
 					/>
 					// 	<CustomText variant="theme">{item.name}</CustomText>
 					// </TouchableOpacity>

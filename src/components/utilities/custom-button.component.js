@@ -8,12 +8,24 @@
 import React, { useContext } from "react";
 import { TouchableOpacity } from "react-native";
 import { ThemeContext } from "styled-components/native";
+import { Ionicons } from "@expo/vector-icons";
 
 import { CustomText } from "./custom-text.component";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 
 export const CustomButton = (props) => {
-	const { style, action, label, size = 100, variant = "default", border } = props;
+	const {
+		style,
+		action,
+		label,
+		size = 100,
+		variant = "default",
+		border,
+		labelText,
+		icon,
+		recipe,
+		orderlist,
+	} = props;
 	const { myTheme, material } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
 
@@ -45,10 +57,23 @@ export const CustomButton = (props) => {
 	return (
 		<TouchableOpacity
 			{...props}
-			style={[border, constantStyle, buttonVariants[variant], style]}
+			style={[
+				border,
+				constantStyle,
+				buttonVariants[variant],
+				style,
+				recipe && {
+					backgroundColor: currentTheme.colors[myTheme][material].secondary,
+					color: currentTheme.colors[myTheme][material].primary,
+				},
+				icon && {
+					backgroundColor: currentTheme.colors[myTheme][material].primary,
+				},
+			]}
 			onPress={action}
 		>
-			<CustomText style={textVariants[variant]}>{label}</CustomText>
+			{labelText && <CustomText style={textVariants[variant]}>{label}</CustomText>}
+			{icon && <Ionicons name={icon[0]} color={currentTheme.colors[myTheme][material].secondary} />}
 		</TouchableOpacity>
 	);
 };

@@ -8,26 +8,27 @@ export const RecipesContext = createContext();
 export const RecipesContextProvider = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
-	const [recipes, setRecipes] = useState(null);
+	const [recipeData, setRecipeData] = useState({ recipes: {} });
 
 	useEffect(() => {
 		let fetchingRecipes = true;
 
-		firestoreUtils.fetchCollection("recipe-list").then((data) => {
-			if (fetchingRecipes) {
-				setIsLoading(true);
-				const newData = objToArr(data);
+		if (fetchingRecipes) {
+			setIsLoading(true);
 
-				setRecipes(newData);
+			firestoreUtils.fetchCollection("recipe-list").then((data) => {
+				setRecipeData({ recipes: { data } });
 				setError(null);
 				setIsLoading(false);
-			}
-		});
+			});
+		}
 
 		return () => {
 			fetchingRecipes = false;
+			setError(null);
+			setIsLoading(false);
 		};
-	}, [recipes]);
+	}, [recipeData.data]);
 
 	onDeleteRecipe = (id) => {
 		setIsLoading(true);
@@ -49,8 +50,8 @@ export const RecipesContextProvider = ({ children }) => {
 			value={{
 				isLoading,
 				error,
-				recipes,
-				setRecipes,
+				recipes: recipeData.recipes,
+				setRecipeData,
 			}}
 		>
 			{children}

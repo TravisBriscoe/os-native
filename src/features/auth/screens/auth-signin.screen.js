@@ -45,6 +45,7 @@ export const LoginScreen = ({ navigation }) => {
 			<CustomInput
 				bgColor="#FFFFFF"
 				textColor="#000000"
+				labelText
 				label="Password:"
 				orientation="column"
 				value={password}
@@ -56,6 +57,7 @@ export const LoginScreen = ({ navigation }) => {
 			/>
 			<View style={{ paddingTop: 10 }} />
 			<CustomButton
+				labelText
 				label="Login With Email"
 				action={() => {
 					if (!password && !useremail) {
@@ -83,6 +85,7 @@ export const LoginScreen = ({ navigation }) => {
 				onPress={() => onGoogleButtonPress()}
 			/> */}
 			<CustomButton
+				labelText
 				label="Login with Google"
 				action={() => onGoogleButtonPress()}
 				size={200}
@@ -93,6 +96,7 @@ export const LoginScreen = ({ navigation }) => {
 			/>
 			<CustomDivider />
 			<CustomButton
+				labelText
 				label="Login with Facebook"
 				action={() => onFacebookLoginPressed()}
 				size={200}
@@ -111,6 +115,7 @@ export const LoginScreen = ({ navigation }) => {
 			/>
 			<View style={{ flex: 0.1 }} />
 			<CustomButton
+				labelText
 				label="Sign Up with Email"
 				action={() => navigation.navigate("Signup")}
 				size={200}

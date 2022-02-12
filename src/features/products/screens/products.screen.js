@@ -7,11 +7,10 @@ import { CustomSearchbar } from "../../../components/utilities/custom-searchbar.
 import { CustomSpinner } from "../../../components/utilities/custom-spinner.component";
 import { ProductList } from "../components/product-list.component";
 import { ProductsContext } from "../../../services/products/products.context";
+import { objToArr } from "../../../services/utils/objtoarr";
 
 export const ProductsScreen = ({ navigation }) => {
 	const { products, isLoading } = useContext(ProductsContext);
-
-	console.log(isLoading);
 
 	return (
 		<CustomView>

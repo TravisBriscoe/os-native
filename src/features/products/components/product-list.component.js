@@ -271,6 +271,7 @@ export const ProductList = ({ product = {} }) => {
 						>
 							{editProduct.edit ? (
 								<CustomButton
+									labelText
 									variant="themed"
 									label="Cancel"
 									style={{ marginRight: 5 }}
@@ -278,6 +279,7 @@ export const ProductList = ({ product = {} }) => {
 								/>
 							) : (
 								<CustomButton
+									labelText
 									variant="themed"
 									label="Edit"
 									style={{ marginRight: 5 }}
@@ -288,6 +290,7 @@ export const ProductList = ({ product = {} }) => {
 								<>
 									{error && <CustomText variant="error">{error}</CustomText>}
 									<CustomButton
+										labelText
 										label="Save"
 										variant="themed"
 										action={() => {
@@ -300,6 +303,7 @@ export const ProductList = ({ product = {} }) => {
 								<>
 									{error && <CustomText variant="error">{error}</CustomText>}
 									<CustomButton
+										labelText
 										variant="themed"
 										label="Delete"
 										style={{ marginLeft: 5 }}
@@ -309,12 +313,12 @@ export const ProductList = ({ product = {} }) => {
 												"\nAre you sure?\nThis operation cannot be undone.",
 												[
 													{
-														text: "Confirm",
-														onPress: () => onDeleteProduct(product.id),
-													},
-													{
 														text: "Cancel",
 														onPress: () => null,
+													},
+													{
+														text: "Confirm",
+														onPress: () => onDeleteProduct(product.id),
 													},
 												]
 											);
