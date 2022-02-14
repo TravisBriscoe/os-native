@@ -21,34 +21,11 @@ export const ProductList = ({ product = {} }) => {
 	const [editProduct, setEditProduct] = useState({ id, edit: false });
 	const [addToOrderList, setAddToOrderList] = useState({ ...orderList });
 
-	// const [productExpanded, setProductExpanded] = useState({ id });
-	// useEffect(() => {
-	// 	if (orderList) {
-	// 		orderList.map((order) => {
-	// 			const {
-	// 				id,
-	// 				data: { value },
-	// 			} = order;
-
-	// 			setAddToOrderList((prevState) => {
-	// 				return { ...prevState, [id]: { value } };
-	// 			});
-	// 		});
-	// 	}
-
-	// 	console.log(addToOrderList);
-	// 	console.log(orderList);
-	// }, []);
-
 	const titleStyle = {
 		backgroundColor: currentTheme.colors[myTheme][material].secondary,
 		color: currentTheme.colors[myTheme][material].primary,
 		fontFamily: currentTheme.fonts[myFont],
 	};
-
-	// useEffect(() => {
-	// 	console.log(editProduct);
-	// }, [editProduct]);
 
 	return (
 		<CustomView style={{ flexDirection: "row" }}>
@@ -74,8 +51,6 @@ export const ProductList = ({ product = {} }) => {
 							size={24}
 						/>
 					)}
-					// expanded={productExpanded.id === id ? true : false}
-					// onPress={() => setProductExpanded({ id })}
 				>
 					{(desc || editProduct.edit) && (
 						<List.Item
