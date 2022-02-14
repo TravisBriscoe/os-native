@@ -7,8 +7,7 @@ import { RecipesScreen } from "../../features/recipes/screens/recipes.screen";
 import { RecipeView } from "../../features/recipes/screens/recipe-view.screen";
 import { RecipesContext } from "../../services/recipes/recipes.context";
 import { objToArr } from "../../services/utils/objtoarr";
-import { CustomView } from "../../components/utilities/custom-views.component";
-import { CustomIcon } from "../../components/utilities/custom-icon.component";
+import { CustomHeader } from "../../components/utilities/custom-header.component";
 
 const Stack = createStackNavigator();
 
@@ -26,13 +25,8 @@ export const RecipesNav = () => {
 			screenOptions={() => ({
 				animationEnabled: false,
 				header: ({ navigation }) => {
-					return (
-						<CustomView header style={{ height: 30 }}>
-							<CustomIcon variant="themed" name="arrow-back" action={() => navigation.goBack()} />
-						</CustomView>
-					);
+					return <CustomHeader navigation={navigation} />;
 				},
-				headerBackTitle: " ",
 				headerMode: "screen",
 			})}
 		>

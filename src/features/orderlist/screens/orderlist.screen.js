@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, Alert, RefreshControl } from "react-native";
 
 import { CustomText } from "../../../components/utilities/custom-text.component";
 import { CustomSpinner } from "../../../components/utilities/custom-spinner.component";
@@ -8,19 +8,49 @@ import { CustomIcon } from "../../../components/utilities/custom-icon.component"
 
 import { ProductsContext } from "../../../services/products/products.context";
 import { objToArr } from "../../../services/utils/objtoarr";
+import { sortOrderData } from "../../../services/utils/sortData";
+import { CustomButton } from "../../../components/utilities/custom-button.component";
 
 export const OrderListScreen = () => {
-	const { isLoading, orderlist, onRemoveFromOrder, onUpdateOrder } = useContext(ProductsContext);
+	const {
+		isLoading,
+		setIsLoading,
+		orderlist,
+		onRemoveFromOrder,
+		onUpdateOrder,
+		onDeleteOrderlist,
+		fetchOrderlist,
+	} = useContext(ProductsContext);
 	const [orderValue, setOrderValue] = useState(orderlist);
 
-	const orderSheet = objToArr(orderlist);
+	const orderSheet = sortOrderData(objToArr(orderlist));
+	console.log(orderSheet);
 
 	return (
-		<CustomView style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+		<>
 			{isLoading && <CustomSpinner />}
-			{orderSheet.length !== 0 ? (
+			<CustomView>
 				<FlatList
+					refreshControl={
+						<RefreshControl
+							refreshing={isLoading}
+							onRefresh={() => {
+								setIsLoading(true);
+								fetchOrderlist().then(() => {
+									setTimeout(() => {
+										setIsLoading(false);
+									});
+								});
+							}}
+						/>
+					}
 					data={orderSheet}
+					ListEmptyComponent={
+						<>
+							<CustomText variant="body">No products on Order!</CustomText>
+							<CustomText variant="body">Please add products on the Products Screen</CustomText>
+						</>
+					}
 					renderItem={({ item }) => {
 						const {
 							data: { name, id },
@@ -106,9 +136,49 @@ export const OrderListScreen = () => {
 					}}
 					keyExtractor={(item) => item.data.id}
 				/>
-			) : (
-				<CustomText>No products on Order!</CustomText>
+			</CustomView>
+			{orderSheet.length > 0 && (
+				<CustomView style={{ flex: 0.2, alignItems: "flex-end", justifyContent: "flex-end" }}>
+					<CustomButton
+						labelText
+						variant="themed"
+						style={{ marginRight: 10, marginBottom: 10 }}
+						label="Clear"
+						action={() => {
+							Alert.alert(
+								"Delete entire order list?",
+								"\nAre you sure?\nThis operation cannot be undone.",
+								[
+									{
+										text: "Cancel",
+										onPress: () => null,
+									},
+									{
+										text: "Confirm",
+										onPress: () => {
+											let newData = [];
+											const allData = orderSheet.map((el) => {
+												newData.push(el.id);
+											});
+
+											onDeleteOrderlist(newData);
+										},
+									},
+								]
+							);
+						}}
+					/>
+				</CustomView>
 			)}
-		</CustomView>
+		</>
+		// 	) : (
+		// 		<CustomView
+		// 			style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}
+		// 		>
+		// 			<CustomText>No products on Order!</CustomText>
+		// 		</CustomView>
+		// 	)}
+		// </>
+		// };
 	);
 };

@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect } from "react";
-import { createImportSpecifier } from "typescript";
 
 import firestoreUtils from "../utils/firestoreUtils";
 import { objToArr } from "../utils/objtoarr";
@@ -103,6 +102,14 @@ export const ProductsContextProvider = ({ children }) => {
 		};
 	}, [fetchedOrderlist]);
 
+	const fetchProducts = async () => {
+		setFetchedProducts(true);
+	};
+
+	const fetchOrderlist = async () => {
+		setFetchedOrderlist(true);
+	};
+
 	const onDeleteProduct = async (id) => {
 		setIsLoading(true);
 		setFetchedProducts(true);
@@ -196,7 +203,22 @@ export const ProductsContextProvider = ({ children }) => {
 			.catch((err) => {
 				setError(err);
 				setIsLoading(false);
-				setFetchedOrderlist(false);
+			});
+	};
+
+	const onDeleteOrderlist = (data) => {
+		setIsLoading(true);
+		setFetchedOrderlist(true);
+
+		firestoreUtils
+			.deleteOrderlist(data)
+			.then(() => {
+				setError(null);
+				setIsLoading(false);
+			})
+			.catch((err) => {
+				setError(err);
+				setIsLoading(false);
 			});
 	};
 
@@ -204,7 +226,9 @@ export const ProductsContextProvider = ({ children }) => {
 		<ProductsContext.Provider
 			value={{
 				isLoading,
+				setIsLoading,
 				error,
+				setError,
 				products,
 				orderlist,
 				setOrderlist,
@@ -215,6 +239,9 @@ export const ProductsContextProvider = ({ children }) => {
 				onAddToOrder,
 				onRemoveFromOrder,
 				onUpdateOrder,
+				onDeleteOrderlist,
+				fetchProducts,
+				fetchOrderlist,
 			}}
 		>
 			{children}

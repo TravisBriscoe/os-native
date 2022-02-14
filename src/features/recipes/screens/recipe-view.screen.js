@@ -11,18 +11,30 @@ export const RecipeView = ({ recipe }) => {
 
 	return (
 		<CustomView>
-			<CustomText>{name}</CustomText>
+			<CustomText variant="title" style={{ textAlign: "center" }}>
+				{name}
+			</CustomText>
 			<CustomDivider />
-			<CustomText>Ingredients:</CustomText>
+			<CustomText variant="caption" style={{ fontSize: 20, paddingLeft: 10 }}>
+				Ingredients:
+			</CustomText>
 			{ingredients.map((el, index) => {
-				return <CustomText key={index}>{el}</CustomText>;
+				return (
+					<CustomText key={index} style={{ paddingLeft: 20 }}>
+						{el}
+					</CustomText>
+				);
 			})}
 			{notes && (
 				<>
 					<CustomDivider />
 					<CustomDivider />
-					<CustomText>Instructions:</CustomText>
-					<CustomText style={{ color: "red" }}>{notes}</CustomText>
+					<CustomText variant="caption" style={{ fontSize: 20, paddingLeft: 10 }}>
+						Instructions:
+					</CustomText>
+					<CustomText variant="body" style={{ paddingLeft: 20, fontStyle: "italic" }}>
+						{notes}
+					</CustomText>
 				</>
 			)}
 		</CustomView>

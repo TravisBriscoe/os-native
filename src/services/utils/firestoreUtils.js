@@ -73,10 +73,24 @@ export const fetchCollection = async (collection) => {
 	return dataObj;
 };
 
+const deleteOrderlist = async (data) => {
+	data.map((el) => {
+		firestore()
+			.collection("order-list")
+			.doc(el)
+			.delete()
+			.catch((err) => {
+				console.log(`${collection} couldn't delete: ${err.message}`);
+				return err.message;
+			});
+	});
+};
+
 export default firestoreUtils = {
 	addData,
 	updateData,
 	deleteData,
 	deleteAll,
 	fetchCollection,
+	deleteOrderlist,
 };

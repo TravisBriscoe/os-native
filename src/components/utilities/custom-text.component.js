@@ -35,7 +35,6 @@ export const CustomText = ({ children, style, variant = "body" }) => {
 		},
 		caption: {
 			fontStyle: "italic",
-			color: currentTheme.colors[myTheme][material].primary,
 		},
 		hint: {
 			color: currentTheme.colors[myTheme][material].success,
@@ -52,5 +51,10 @@ export const CustomText = ({ children, style, variant = "body" }) => {
 		},
 	};
 
-	return <Text style={[variants[variant], style]}>{children}</Text>;
+	const themedStyling = {
+		color: currentTheme.colors[myTheme][material].primary,
+		fontFamily: currentTheme.fonts[myFont],
+	};
+
+	return <Text style={[themedStyling, variants[variant], style]}>{children}</Text>;
 };

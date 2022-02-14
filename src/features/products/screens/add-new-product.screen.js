@@ -79,7 +79,7 @@ export const AddProduct = ({ navigation }) => {
 			/>
 			<CustomDivider />
 			<View style={{ flexDirection: "row", alignItems: "center" }}>
-				<CustomText variant="theme">Split?</CustomText>
+				<CustomText variant="body">Split?</CustomText>
 				<CustomDivider place="right" />
 				<Checkbox
 					status={newSplit ? "checked" : "unchecked"}
@@ -123,7 +123,7 @@ export const AddProduct = ({ navigation }) => {
 
 						onAddNewProduct(newItem.id, newItem);
 						setError(null);
-						navigation.navigate("products");
+						if (!error) navigation.goBack();
 					}}
 				/>
 				{error && <CustomText variant="error">{error}</CustomText>}
