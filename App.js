@@ -33,7 +33,7 @@ const App = () => {
 					<AppSettingsContextProvider>
 						<ProductsContextProvider>
 							<RecipesContextProvider>
-								<AuthCall />
+								<Splash />
 							</RecipesContextProvider>
 						</ProductsContextProvider>
 					</AppSettingsContextProvider>

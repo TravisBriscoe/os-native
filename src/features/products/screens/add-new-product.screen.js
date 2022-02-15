@@ -22,8 +22,50 @@ export const AddProduct = ({ navigation }) => {
 	const { products, onAddNewProduct, error, setError } = useContext(ProductsContext);
 
 	return (
-		<CustomView style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-			<CustomInput
+		<CustomView style={{ alignItems: "center", justifyContent: "center" }}>
+			<CustomView style={{ flexDirection: "row", justifyContent: "center" }}>
+				<CustomView
+					style={{
+						flex: 0.25,
+						flexDirection: "column",
+						alignSelf: "center",
+						marginLeft: 15,
+						marginTop: -5,
+					}}
+				>
+					<CustomText variant="themed">Name:</CustomText>
+					<CustomDivider />
+					<CustomDivider />
+					<CustomText variant="themed">Description:</CustomText>
+					<CustomDivider />
+					<CustomText variant="themed">Distributor:</CustomText>
+					<CustomDivider />
+					<CustomText variant="themed">Unit:</CustomText>
+					<CustomDivider />
+					<CustomText variant="themed">Category:</CustomText>
+					<CustomDivider />
+					<CustomText variant="themed">Storage:</CustomText>
+				</CustomView>
+				<CustomView style={{ flex: 0.75, flexDirection: "column", alignSelf: "center" }}>
+					<CustomInput />
+					<CustomDivider />
+					<CustomDivider />
+					<CustomInput />
+					<CustomDivider />
+					<CustomInput />
+					<CustomDivider />
+					<CustomInput />
+					<CustomDivider />
+					<CustomInput />
+					<CustomDivider />
+					<CustomInput />
+				</CustomView>
+			</CustomView>
+			<CustomView style={{ flexDirection: "row", alignSelf: "center" }}>
+				<CustomText>Split?</CustomText>
+				<Checkbox />
+			</CustomView>
+			{/* <CustomInput
 				style={{ borderWidth: 1, paddingLeft: 5, paddingTop: 3, paddingBottom: 3 }}
 				viewWidth="95%"
 				inputWidth="85%"
@@ -85,7 +127,7 @@ export const AddProduct = ({ navigation }) => {
 					status={newSplit ? "checked" : "unchecked"}
 					onPress={() => setNewSplit(!newSplit)}
 				/>
-			</View>
+			</View> */}
 			<CustomDivider />
 			<View style={{ flexDirection: "row", alignItems: "center" }}>
 				<CustomButton

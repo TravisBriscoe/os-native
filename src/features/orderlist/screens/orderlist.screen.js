@@ -24,7 +24,6 @@ export const OrderListScreen = () => {
 	const [orderValue, setOrderValue] = useState(orderlist);
 
 	const orderSheet = sortOrderData(objToArr(orderlist));
-	console.log(orderSheet);
 
 	return (
 		<>
