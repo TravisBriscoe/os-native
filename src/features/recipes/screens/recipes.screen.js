@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FlatList, TouchableOpacity, Text } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
 
 import { CustomView } from "../../../components/utilities/custom-views.component";
 import { CustomDivider } from "../../../components/utilities/custom-divider.component";
@@ -8,11 +8,9 @@ import { CustomFab } from "../../../components/utilities/custom-fab.component";
 import { CustomText } from "../../../components/utilities/custom-text.component";
 import { CustomButton } from "../../../components/utilities/custom-button.component";
 import { RecipesContext } from "../../../services/recipes/recipes.context";
-import { objToArr } from "../../../services/utils/objtoarr";
 
 export const RecipesScreen = ({ navigation }) => {
-	const { isLoading, error, recipes } = useContext(RecipesContext);
-	const newRecipes = objToArr(recipes.data);
+	const { isLoading, error, recipes, isRefreshing, fetchRecipes } = useContext(RecipesContext);
 
 	return (
 		<CustomView
@@ -23,13 +21,20 @@ export const RecipesScreen = ({ navigation }) => {
 			}}
 		>
 			{isLoading && <CustomSpinner />}
-			{error && <Text style={{ color: "red", textStyle: "italic" }}>{error}</Text>}
+			{error && <CustomText variant="error">{error}</CustomText>}
 			<CustomFab action={() => navigation.navigate("AddRecipe")} />
 			<CustomDivider place="bottom" size="med" />
 			<FlatList
-				data={newRecipes}
+				data={recipes}
 				initialNumToRender={20}
-				keyExtractor={(item, index) => index}
+				refreshControl={
+					<RefreshControl
+						refreshing={isRefreshing}
+						onRefresh={() => {
+							fetchRecipes();
+						}}
+					/>
+				}
 				renderItem={({ item }) => (
 					<CustomButton
 						labelText
@@ -39,8 +44,6 @@ export const RecipesScreen = ({ navigation }) => {
 						style={{ paddingBottom: 5, width: "100%" }}
 						action={() => navigation.navigate(`recipe-${item.id}`)}
 					/>
-					// 	<CustomText variant="theme">{item.name}</CustomText>
-					// </TouchableOpacity>
 				)}
 			/>
 		</CustomView>

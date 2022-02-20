@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, ScrollView } from "react-native";
 
+import { RecipesContext } from "../../../services/recipes/recipes.context";
 import { CustomButton } from "../../../components/utilities/custom-button.component";
 import { CustomDivider } from "../../../components/utilities/custom-divider.component";
 import { CustomInput } from "../../../components/utilities/custom-input.components";
@@ -14,10 +15,12 @@ export const RecipeView = ({ recipe }) => {
 		recipe: { ingredients, notes },
 	} = recipe;
 
+	const { onDeleteRecipe } = useContext(RecipesContext);
+
 	const [editRecipe, setEditRecipe] = useState({ [id]: { edit: false } });
 
 	return (
-		<>
+		<CustomView style={{ flex: 1 }}>
 			<ScrollView>
 				<CustomView style={{ flex: 1 }}>
 					{editRecipe[id].edit ? (
@@ -41,7 +44,7 @@ export const RecipeView = ({ recipe }) => {
 						return (
 							<>
 								{editRecipe[id].edit ? (
-									<CustomInput placeholder={el} viewStyle={{ paddingLeft: 20 }} />
+									<CustomInput placeholder={el} key={index} viewStyle={{ paddingLeft: 20 }} />
 								) : (
 									<CustomText key={index} style={{ paddingLeft: 20 }}>
 										{el}
@@ -75,9 +78,9 @@ export const RecipeView = ({ recipe }) => {
 				</CustomView>
 				<CustomView
 					style={{
-						position: "absolute",
-						bottom: 5,
-						right: 5,
+						flexDirection: "row",
+						justifyContent: "flex-end",
+						marginTop: 10,
 					}}
 				>
 					{editRecipe[id].edit ? (
@@ -96,6 +99,10 @@ export const RecipeView = ({ recipe }) => {
 							labelText
 							label="Delete"
 							style={{ marginRight: 10, alignSelf: "center" }}
+							action={() => {
+								setEditRecipe({ [id]: { edit: false } });
+								onDeleteRecipe(id);
+							}}
 						/>
 					)}
 					{editRecipe[id].edit ? (
@@ -119,6 +126,6 @@ export const RecipeView = ({ recipe }) => {
 					)}
 				</CustomView>
 			</ScrollView>
-		</>
+		</CustomView>
 	);
 };

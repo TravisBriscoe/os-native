@@ -52,7 +52,6 @@ export const fetchCollection = async (collection) => {
 			.collection(collection)
 			.get()
 			.then((querySnapshot) => {
-				console.log(collection);
 				querySnapshot.docs.map((doc) => {
 					const { id } = doc.data();
 

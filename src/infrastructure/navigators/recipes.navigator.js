@@ -6,7 +6,6 @@ import { Text } from "react-native-paper";
 import { RecipesScreen } from "../../features/recipes/screens/recipes.screen";
 import { RecipeView } from "../../features/recipes/screens/recipe-view.screen";
 import { RecipesContext } from "../../services/recipes/recipes.context";
-import { objToArr } from "../../services/utils/objtoarr";
 import { CustomHeader } from "../../components/utilities/custom-header.component";
 
 const Stack = createStackNavigator();
@@ -17,7 +16,6 @@ const AddNewRecipe = () => {
 
 export const RecipesNav = () => {
 	const { recipes } = useContext(RecipesContext);
-	const newRecipes = objToArr(recipes.data);
 
 	return (
 		<Stack.Navigator
@@ -36,7 +34,7 @@ export const RecipesNav = () => {
 				component={AddNewRecipe}
 				options={{ title: "Add New Recipe" }}
 			/>
-			{newRecipes.map((item) => {
+			{recipes.map((item) => {
 				return (
 					<Stack.Screen
 						name={`recipe-${item.id}`}

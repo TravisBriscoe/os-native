@@ -1,142 +1,44 @@
-import React, { useContext, useState } from "react";
-import { FlatList, Alert, RefreshControl } from "react-native";
+import React, { useContext } from "react";
+import { FlatList, Alert, RefreshControl, ScrollView } from "react-native";
 
 import { CustomText } from "../../../components/utilities/custom-text.component";
 import { CustomSpinner } from "../../../components/utilities/custom-spinner.component";
 import { CustomView } from "../../../components/utilities/custom-views.component";
-import { CustomIcon } from "../../../components/utilities/custom-icon.component";
-
-import { ProductsContext } from "../../../services/products/products.context";
-import { objToArr } from "../../../services/utils/objtoarr";
-import { sortOrderData } from "../../../services/utils/sortData";
+import { CustomDivider } from "../../../components/utilities/custom-divider.component";
 import { CustomButton } from "../../../components/utilities/custom-button.component";
 
-export const OrderListScreen = () => {
-	const {
-		isLoading,
-		setIsLoading,
-		orderlist,
-		onRemoveFromOrder,
-		onUpdateOrder,
-		onDeleteOrderlist,
-		fetchOrderlist,
-	} = useContext(ProductsContext);
-	const [orderValue, setOrderValue] = useState(orderlist);
+import { OrderList } from "../components/orderlist-list.component";
+import { OrderlistContext } from "../../../services/orderlist/orderlist.context";
 
-	const orderSheet = sortOrderData(objToArr(orderlist));
+export const OrderListScreen = () => {
+	const { isLoading, error, orderlist, onDeleteOrderlist, fetchOrderlist, isRefreshing } =
+		useContext(OrderlistContext);
 
 	return (
-		<>
+		<CustomView>
 			{isLoading && <CustomSpinner />}
-			<CustomView>
-				<FlatList
-					refreshControl={
-						<RefreshControl
-							refreshing={isLoading}
-							onRefresh={() => {
-								setIsLoading(true);
-								fetchOrderlist().then(() => {
-									setTimeout(() => {
-										setIsLoading(false);
-									});
-								});
-							}}
-						/>
-					}
-					data={orderSheet}
-					ListEmptyComponent={
-						<>
-							<CustomText variant="body">No products on Order!</CustomText>
-							<CustomText variant="body">Please add products on the Products Screen</CustomText>
-						</>
-					}
-					renderItem={({ item }) => {
-						const {
-							data: { name, id },
-						} = item;
-
-						return (
-							<>
-								<CustomView style={{ flexDirection: "row" }}>
-									<CustomView>
-										<CustomText variant="body" style={{ paddingLeft: 10 }}>
-											{name}
-										</CustomText>
-									</CustomView>
-									<CustomView
-										style={{
-											flexDirection: "row",
-											alignItems: "center",
-											justifyContent: "center",
-										}}
-									>
-										<CustomIcon
-											disabled={orderValue[id].data.value <= 1 ? true : false}
-											style={{ paddingRight: 5 }}
-											variant="themed"
-											size={25}
-											name="arrow-down"
-											action={() => {
-												let count = +orderValue[id].data.value - 1;
-
-												setOrderValue({
-													...orderValue,
-													[id]: { data: { value: count } },
-												});
-
-												onUpdateOrder(id, {
-													data: {
-														id,
-														name,
-														value: count,
-													},
-													id,
-												});
-											}}
-										/>
-										<CustomText variant="body">{orderValue[id].data.value}</CustomText>
-										<CustomIcon
-											disabled={orderValue[id].data.value >= 9 ? true : false}
-											style={{ marginLeft: 5 }}
-											size={25}
-											variant="themed"
-											name={"arrow-up"}
-											action={() => {
-												const count = +orderValue[id].data.value + 1;
-
-												setOrderValue({
-													...orderValue,
-													[id]: { data: { value: count } },
-												});
-
-												onUpdateOrder(id, {
-													data: {
-														id,
-														name,
-														value: count,
-													},
-													id,
-												});
-											}}
-										/>
-										<CustomIcon
-											name="close-sharp"
-											variant="themed"
-											size={30}
-											style={{ paddingLeft: 10 }}
-											action={() => {
-												onRemoveFromOrder(orderValue[id].id);
-											}}
-										/>
-									</CustomView>
-								</CustomView>
-							</>
-						);
-					}}
-					keyExtractor={(item) => item.data.id}
-				/>
-			</CustomView>
-			{orderSheet.length > 0 && (
+			<CustomDivider size="xlg" />
+			<FlatList
+				refreshControl={
+					<RefreshControl
+						refreshing={isRefreshing}
+						onRefresh={() => {
+							fetchOrderlist();
+						}}
+					/>
+				}
+				data={orderlist}
+				ListEmptyComponent={
+					<CustomView style={{ flex: 1, alignSelf: "center", justifyContent: "center" }}>
+						<CustomText style={{ textAlign: "center" }} variant="body">
+							No products on Order!
+						</CustomText>
+						<CustomText variant="body">Please add products on the Products Screen</CustomText>
+					</CustomView>
+				}
+				renderItem={({ item }) => <OrderList order={item} />}
+			/>
+			{orderlist.length > 0 && (
 				<CustomView style={{ flex: 0.2, alignItems: "flex-end", justifyContent: "flex-end" }}>
 					<CustomButton
 						labelText
@@ -156,7 +58,7 @@ export const OrderListScreen = () => {
 										text: "Confirm",
 										onPress: () => {
 											let newData = [];
-											const allData = orderSheet.map((el) => {
+											const allData = orderlist.map((el) => {
 												newData.push(el.id);
 											});
 
@@ -169,15 +71,6 @@ export const OrderListScreen = () => {
 					/>
 				</CustomView>
 			)}
-		</>
-		// 	) : (
-		// 		<CustomView
-		// 			style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}
-		// 		>
-		// 			<CustomText>No products on Order!</CustomText>
-		// 		</CustomView>
-		// 	)}
-		// </>
-		// };
+		</CustomView>
 	);
 };

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { List, Checkbox } from "react-native-paper";
 import { ThemeContext } from "styled-components/native";
 import { View, Alert } from "react-native";
@@ -10,16 +10,33 @@ import { CustomInput } from "../../../components/utilities/custom-input.componen
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { CustomView } from "../../../components/utilities/custom-views.component";
 import { ProductsContext } from "../../../services/products/products.context";
+import { OrderlistContext } from "../../../services/orderlist/orderlist.context";
 
 export const ProductList = ({ product = {} }) => {
-	const { myTheme, myFont, material } = useContext(AppSettingsContext);
-	const { onDeleteProduct, onUpdateProduct, error, onAddProductToOrder, orderList } =
-		useContext(ProductsContext);
 	const currentTheme = useContext(ThemeContext);
+	const { myTheme, myFont, material } = useContext(AppSettingsContext);
+	const { orderlist } = useContext(OrderlistContext);
+	const { onDeleteProduct, onUpdateProduct, error, onAddProductToOrder } =
+		useContext(ProductsContext);
 
 	const { desc, name, unit, dist, stored, category, split, id } = product;
 	const [editProduct, setEditProduct] = useState({ id, edit: false });
-	const [addToOrderList, setAddToOrderList] = useState({ ...orderList });
+
+	const transferItems = () => {
+		const dataObj = {};
+
+		orderlist.map((item) => {
+			const { id } = item;
+
+			dataObj[id] = {
+				...item,
+			};
+		});
+
+		return dataObj;
+	};
+
+	const [addToOrderList, setAddToOrderList] = useState(transferItems());
 
 	const titleStyle = {
 		backgroundColor: currentTheme.colors[myTheme][material].secondary,
@@ -311,14 +328,13 @@ export const ProductList = ({ product = {} }) => {
 				viewWidth="8%"
 				style={{ padding: 5, textAlign: "right" }}
 				viewStyle={{ paddingTop: 25 }}
-				defaultValue={addToOrderList[id] ? addToOrderList[id].data.value.toString() : "0"}
-				// value={addToOrderList[id].value.toString()}
-				// // onChangeText={(text) => {
-				//		setAddToOrderSheet({[id]: {value: text}});
-				// }}
-				// onEndEditing={() => {
-				//		onAddToOrderSheet(id, addToOrderSheet[id].value);
-				// }}
+				placeholder={!addToOrderList[id] ? "0" : addToOrderList[id].data.value.toString()}
+				onChangeText={(text) => {
+					setAddToOrderList({ [id]: { value: text } });
+				}}
+				onEndEditing={() => {
+					onAddToOrderSheet(id, addToOrderList[id].value);
+				}}
 			/>
 		</CustomView>
 	);
