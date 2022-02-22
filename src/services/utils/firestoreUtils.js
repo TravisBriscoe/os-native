@@ -33,7 +33,7 @@ export const updateData = async (collection, id, data) => {
 export const deleteAll = async (collection) => {
 	firestore()
 		.collection(collection)
-		.deelete()
+		.delete()
 		.catch((err) => err);
 };
 

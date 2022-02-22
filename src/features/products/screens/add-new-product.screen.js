@@ -9,6 +9,7 @@ import { CustomButton } from "../../../components/utilities/custom-button.compon
 import { CustomText } from "../../../components/utilities/custom-text.component";
 
 import { ProductsContext } from "../../../services/products/products.context";
+import { AppContext } from "../../../services/app/app.context";
 
 export const AddProduct = ({ navigation }) => {
 	const [newName, setNewName] = useState("");
@@ -19,7 +20,8 @@ export const AddProduct = ({ navigation }) => {
 	const [newStored, setNewStored] = useState("");
 	const [newSplit, setNewSplit] = useState(false);
 
-	const { products, onAddNewProduct, error, setError } = useContext(ProductsContext);
+	const { products, onAddNewProduct } = useContext(ProductsContext);
+	const { error } = useContext(AppContext);
 
 	return (
 		<CustomView style={{ flexDirection: "column", justifyContent: "center" }}>
@@ -163,7 +165,6 @@ export const AddProduct = ({ navigation }) => {
 						};
 
 						onAddNewProduct(newItem.id, newItem);
-						setError(null);
 						if (!error) navigation.goBack();
 					}}
 				/>

@@ -8,9 +8,11 @@ import { CustomFab } from "../../../components/utilities/custom-fab.component";
 import { CustomText } from "../../../components/utilities/custom-text.component";
 import { CustomButton } from "../../../components/utilities/custom-button.component";
 import { RecipesContext } from "../../../services/recipes/recipes.context";
+import { AppContext } from "../../../services/app/app.context";
 
 export const RecipesScreen = ({ navigation }) => {
-	const { isLoading, error, recipes, isRefreshing, fetchRecipes } = useContext(RecipesContext);
+	const { recipes, isRefreshing, fetchRecipes } = useContext(RecipesContext);
+	const { isLoading, error } = useContext(AppContext);
 
 	return (
 		<CustomView

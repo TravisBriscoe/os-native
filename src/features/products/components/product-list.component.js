@@ -15,9 +15,9 @@ import { OrderlistContext } from "../../../services/orderlist/orderlist.context"
 export const ProductList = ({ product = {} }) => {
 	const currentTheme = useContext(ThemeContext);
 	const { myTheme, myFont, material } = useContext(AppSettingsContext);
-	const { orderlist } = useContext(OrderlistContext);
-	const { onDeleteProduct, onUpdateProduct, error, onAddProductToOrder } =
-		useContext(ProductsContext);
+	const { orderlist, onAddToOrder, onUpdateOrder, onRemoveFromOrder } =
+		useContext(OrderlistContext);
+	const { onDeleteProduct, onUpdateProduct, error } = useContext(ProductsContext);
 
 	const { desc, name, unit, dist, stored, category, split, id } = product;
 	const [editProduct, setEditProduct] = useState({ id, edit: false });
@@ -25,15 +25,18 @@ export const ProductList = ({ product = {} }) => {
 	const transferItems = () => {
 		const dataObj = {};
 
-		orderlist.map((item) => {
-			const { id } = item;
+		if (!orderlist) return orderlist;
+		else if (orderlist.length) {
+			orderlist.map((item) => {
+				const { id } = item;
 
-			dataObj[id] = {
-				...item,
-			};
-		});
+				dataObj[id] = {
+					...item,
+				};
+			});
 
-		return dataObj;
+			return dataObj;
+		}
 	};
 
 	const [addToOrderList, setAddToOrderList] = useState(transferItems());
@@ -330,11 +333,39 @@ export const ProductList = ({ product = {} }) => {
 				viewStyle={{ paddingTop: 25 }}
 				placeholder={!addToOrderList[id] ? "0" : addToOrderList[id].data.value.toString()}
 				onChangeText={(text) => {
-					setAddToOrderList({ [id]: { value: text } });
+					console.log(text);
+					if (!addToOrderList || !addToOrderList[id]) {
+						setAddToOrderList({ [id]: { data: { id, name, value: text }, id } });
+						setTimeout(() => {
+							onAddToOrder(id, {
+								data: {
+									id,
+									name,
+									value: text,
+								},
+								id,
+							});
+						}, 500);
+					}
+					if (text !== 0) {
+						console.log(0);
+						setAddToOrderList({
+							data: { ...addToOrderList[id].data, value: text },
+							id,
+						});
+						setTimeout(() => {
+							onUpdateOrder(id, { data: { id, name, value: text }, id });
+						}, 500);
+					}
+					if (text === "0") {
+						console.log(text);
+						onRemoveFromOrder(addToOrderList[id].id);
+					}
 				}}
-				onEndEditing={() => {
-					onAddToOrderSheet(id, addToOrderList[id].value);
-				}}
+				// onEndEditing={(text) => {
+				// 	console.log(text);
+				// 	onAddProductToOrder(id, addToOrderList[id].value);
+				// }}
 			/>
 		</CustomView>
 	);

@@ -8,10 +8,12 @@ import { CustomSpinner } from "../../../components/utilities/custom-spinner.comp
 import { ProductList } from "../components/product-list.component";
 import { ProductsContext } from "../../../services/products/products.context";
 import { OrderlistContext } from "../../../services/orderlist/orderlist.context";
+import { AppContext } from "../../../services/app/app.context";
 
 export const ProductsScreen = ({ navigation }) => {
-	const { products, isLoading, isRefreshing, fetchProducts } = useContext(ProductsContext);
+	const { products, isRefreshing, fetchProducts } = useContext(ProductsContext);
 	const { fetchOrderlist } = useContext(OrderlistContext);
+	const { isLoading, error } = useContext(AppContext);
 
 	return (
 		<CustomView>

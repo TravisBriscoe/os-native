@@ -1,18 +1,18 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import firestore from "@react-native-firebase/firestore";
 
 import firestoreUtils from "../utils/firestoreUtils";
+import { AppContext } from "../app/app.context";
 import { objToArr } from "../utils/objtoarr";
 import { sortData } from "../utils/sortData";
 
 export const ProductsContext = createContext();
 
 export const ProductsContextProvider = ({ children }) => {
-	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState([]);
 	const [products, setProducts] = useState({});
 	const [orderlist, setOrderlist] = useState({});
 	const [isRefreshing, setIsRefreshing] = useState(false);
+	const { setIsLoading, setError } = useContext(AppContext);
 
 	useEffect(() => {
 		const subscriber = firestore()
@@ -109,8 +109,6 @@ export const ProductsContextProvider = ({ children }) => {
 	return (
 		<ProductsContext.Provider
 			value={{
-				isLoading,
-				error,
 				products,
 				isRefreshing,
 				onDeleteProduct,

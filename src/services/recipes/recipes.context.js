@@ -1,16 +1,16 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import firestore from "@react-native-firebase/firestore";
 
 import firestoreUtils from "../utils/firestoreUtils";
+import { AppContext } from "../app/app.context";
 import { objToArr } from "../utils/objtoarr";
 
 export const RecipesContext = createContext();
 
 export const RecipesContextProvider = ({ children }) => {
-	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState(null);
 	const [recipes, setRecipes] = useState(null);
 	const [isRefreshing, setIsRefreshing] = useState(false);
+	const { setIsLoading, setError } = useContext(AppContext);
 
 	useEffect(() => {
 		const subscriber = firestore()
@@ -102,8 +102,6 @@ export const RecipesContextProvider = ({ children }) => {
 	return (
 		<RecipesContext.Provider
 			value={{
-				isLoading,
-				error,
 				recipes,
 				isRefreshing,
 				onDeleteRecipe,

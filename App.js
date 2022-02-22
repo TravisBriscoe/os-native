@@ -10,6 +10,7 @@ import { AuthContextProvider } from "./src/services/auth/auth.context";
 import { AppSettingsContextProvider } from "./src/services/app-settings/app-settings.context";
 import { Splash } from "./src/features/splash/screens/spash.screen";
 import { AuthCall } from "./src/features/auth/components/auth-call.component";
+import { AppContextProvider } from "./src/services/app/app.context";
 
 const App = () => {
 	const [cursiveLoaded] = useCursive({
@@ -27,11 +28,13 @@ const App = () => {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<AuthContextProvider>
-					<AppSettingsContextProvider>
-						<AuthCall />
-					</AppSettingsContextProvider>
-				</AuthContextProvider>
+				<AppContextProvider>
+					<AuthContextProvider>
+						<AppSettingsContextProvider>
+							<AuthCall />
+						</AppSettingsContextProvider>
+					</AuthContextProvider>
+				</AppContextProvider>
 			</ThemeProvider>
 			<StatusBar style="dark" />
 		</>
