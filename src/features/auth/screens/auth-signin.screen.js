@@ -37,6 +37,7 @@ export const LoginScreen = ({ navigation }) => {
 				inputWidth="100%"
 				value={useremail}
 				style={{ height: 40, margin: 12, borderWidth: 1, padding: 10 }}
+				keyboardType="email-address"
 				onChangeText={(text) => {
 					setIsNoEmail(false);
 					onChangeUserEmail(text);
@@ -46,6 +47,7 @@ export const LoginScreen = ({ navigation }) => {
 				bgColor="#FFFFFF"
 				textColor="#000000"
 				labelText
+				secureTextEntry={true}
 				label="Password:"
 				orientation="column"
 				value={password}

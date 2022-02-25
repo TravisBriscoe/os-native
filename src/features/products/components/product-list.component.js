@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { List, Checkbox } from "react-native-paper";
 import { ThemeContext } from "styled-components/native";
 import { View, Alert } from "react-native";
@@ -11,13 +11,14 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { CustomView } from "../../../components/utilities/custom-views.component";
 import { ProductsContext } from "../../../services/products/products.context";
 import { OrderlistContext } from "../../../services/orderlist/orderlist.context";
+import { objToArr } from "../../../services/utils/objtoarr";
 
-export const ProductList = ({ product = {} }) => {
+export const ProductList = ({ product = {}, productExpanded }) => {
 	const currentTheme = useContext(ThemeContext);
 	const { myTheme, myFont, material } = useContext(AppSettingsContext);
 	const { orderlist, onAddToOrder, onUpdateOrder, onRemoveFromOrder } =
 		useContext(OrderlistContext);
-	const { onDeleteProduct, onUpdateProduct, error } = useContext(ProductsContext);
+	const { onDeleteProduct, onUpdateProduct, error, products } = useContext(ProductsContext);
 
 	const { desc, name, unit, dist, stored, category, split, id } = product;
 	const [editProduct, setEditProduct] = useState({ id, edit: false });
@@ -37,6 +38,49 @@ export const ProductList = ({ product = {} }) => {
 
 			return dataObj;
 		}
+	};
+
+	const productIsExpanded = () => {
+		const dataObj = {};
+
+		products.map((item) => {
+			const { id } = item;
+
+			dataObj[id] = { id, isExpanded: false };
+		});
+
+		return dataObj;
+	};
+
+	const [isProductExpanded, setIsProductExpanded] = useState(productIsExpanded());
+
+	const changeExpanded = (oldId) => {
+		const oldData = Object.entries(isProductExpanded).map((el) => {
+			const exitData = {};
+
+			if (el[1].id !== oldId) {
+				exitData[el[1].id] = { id: el[1].id, isExpanded: false };
+			} else return;
+
+			return Object.assign({}, exitData);
+		});
+
+		const newData = Object.entries(isProductExpanded).filter((el) => {
+			const exitData = {};
+
+			if (el[1].id === oldId) {
+				exitData[el[1].id] = { id: el[1].id, isExpanded: !el[1].isExpanded };
+			} else return undefined;
+
+			return exitData;
+		});
+
+		console.log(oldData);
+
+		setIsProductExpanded({
+			newData,
+			oldData,
+		});
 	};
 
 	const [addToOrderList, setAddToOrderList] = useState(transferItems());
@@ -59,6 +103,8 @@ export const ProductList = ({ product = {} }) => {
 							</CustomText>
 						)
 					}
+					// expanded={console.log(isProductExpanded)}
+					onPress={() => changeExpanded(id)}
 					descriptionNumberOfLines={1}
 					titleStyle={{
 						fontSize: currentTheme.fontSizes[6],
@@ -79,6 +125,7 @@ export const ProductList = ({ product = {} }) => {
 							right={() =>
 								editProduct.edit ? (
 									<CustomInput
+										variant="themed"
 										orientation="column"
 										inputWidth="80%"
 										viewWidth="75%"
@@ -88,6 +135,7 @@ export const ProductList = ({ product = {} }) => {
 											alignItems: "center",
 											justifyContent: "center",
 											textAlign: "right",
+											paddingRight: 2,
 										}}
 										onChangeText={(text) =>
 											setEditProduct({
@@ -112,6 +160,7 @@ export const ProductList = ({ product = {} }) => {
 							right={() =>
 								editProduct.edit ? (
 									<CustomInput
+										variant="themed"
 										orientation="column"
 										inputWidth="80%"
 										viewWidth="75%"
@@ -121,6 +170,7 @@ export const ProductList = ({ product = {} }) => {
 											alignItems: "center",
 											justifyContent: "center",
 											textAlign: "right",
+											paddingRight: 2,
 										}}
 										onChangeText={(text) =>
 											setEditProduct({
@@ -142,6 +192,7 @@ export const ProductList = ({ product = {} }) => {
 							right={() =>
 								editProduct.edit ? (
 									<CustomInput
+										variant="themed"
 										orientation="column"
 										inputWidth="80%"
 										viewWidth="75%"
@@ -151,6 +202,7 @@ export const ProductList = ({ product = {} }) => {
 											alignItems: "center",
 											justifyContent: "center",
 											textAlign: "right",
+											paddingRight: 2,
 										}}
 										onChangeText={(text) =>
 											setEditProduct({
@@ -172,6 +224,7 @@ export const ProductList = ({ product = {} }) => {
 							right={() =>
 								editProduct.edit ? (
 									<CustomInput
+										variant="themed"
 										orientation="column"
 										inputWidth="80%"
 										viewWidth="75%"
@@ -181,6 +234,7 @@ export const ProductList = ({ product = {} }) => {
 											alignItems: "center",
 											justifyContent: "center",
 											textAlign: "right",
+											paddingRight: 2,
 										}}
 										onChangeText={(text) =>
 											setEditProduct({
@@ -202,6 +256,7 @@ export const ProductList = ({ product = {} }) => {
 							right={() =>
 								editProduct.edit ? (
 									<CustomInput
+										variant="themed"
 										orientation="column"
 										inputWidth="80%"
 										viewWidth="75%"
@@ -211,6 +266,7 @@ export const ProductList = ({ product = {} }) => {
 											alignItems: "center",
 											justifyContent: "center",
 											textAlign: "right",
+											paddingRight: 2,
 										}}
 										onChangeText={(text) =>
 											setEditProduct({
@@ -331,9 +387,9 @@ export const ProductList = ({ product = {} }) => {
 				viewWidth="8%"
 				style={{ padding: 5, textAlign: "right" }}
 				viewStyle={{ paddingTop: 25 }}
-				placeholder={!addToOrderList[id] ? "0" : addToOrderList[id].data.value.toString()}
+				// placeholder={!addToOrderList ? "0" : addToOrderList[id].data.value.toString()}
+				keyboardType="numeric"
 				onChangeText={(text) => {
-					console.log(text);
 					if (!addToOrderList || !addToOrderList[id]) {
 						setAddToOrderList({ [id]: { data: { id, name, value: text }, id } });
 						setTimeout(() => {
@@ -348,9 +404,8 @@ export const ProductList = ({ product = {} }) => {
 						}, 500);
 					}
 					if (text !== 0) {
-						console.log(0);
 						setAddToOrderList({
-							data: { ...addToOrderList[id].data, value: text },
+							...(addToOrderList[id] && { data: { ...addToOrderList[id].data, value: text } }),
 							id,
 						});
 						setTimeout(() => {
@@ -358,7 +413,6 @@ export const ProductList = ({ product = {} }) => {
 						}, 500);
 					}
 					if (text === "0") {
-						console.log(text);
 						onRemoveFromOrder(addToOrderList[id].id);
 					}
 				}}

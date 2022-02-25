@@ -9,12 +9,10 @@ import { CustomButton } from "../../../components/utilities/custom-button.compon
 
 import { OrderList } from "../components/orderlist-list.component";
 import { OrderlistContext } from "../../../services/orderlist/orderlist.context";
-import { AppContext } from "../../../services/app/app.context";
 
 export const OrderListScreen = () => {
-	const { orderlist, onDeleteOrderlist, fetchOrderlist, isRefreshing } =
+	const { orderlist, onDeleteOrderlist, fetchOrderlist, isRefreshing, isLoading, error } =
 		useContext(OrderlistContext);
-	const { isLoading, error } = useContext(AppContext);
 
 	return (
 		<CustomView>

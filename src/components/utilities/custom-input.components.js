@@ -65,7 +65,11 @@ export const CustomInput = (props) => {
 	return (
 		<View style={[defaultViewStyle, viewStyle]}>
 			{label ? (
-				<CustomText style={[{ paddingRight: 10 }, textVariants[variant]]}>{label}</CustomText>
+				<CustomText
+					style={[{ paddingRight: orientation === "row" ? 10 : null }, textVariants[variant]]}
+				>
+					{label}
+				</CustomText>
 			) : null}
 			<TextInput
 				{...props}

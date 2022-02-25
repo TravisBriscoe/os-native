@@ -1,8 +1,7 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import firestore from "@react-native-firebase/firestore";
 
 import firestoreUtils from "../utils/firestoreUtils";
-import { AppContext } from "../app/app.context";
 import { objToArr } from "../utils/objtoarr";
 import { sortOrderData } from "../utils/sortData";
 
@@ -10,9 +9,10 @@ export const OrderlistContext = createContext();
 
 export const OrderlistContextProvider = ({ children }) => {
 	const [orderlist, setOrderlist] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState(null);
 	const [isRefreshing, setIsRefreshing] = useState(false);
 	const orderlistCollection = firestore().collection("order-list");
-	const { setIsLoading, setError } = useContext(AppContext);
 
 	useEffect(() => {
 		const subscriber = orderlistCollection.onSnapshot((querySnapshot) => {
@@ -133,6 +133,10 @@ export const OrderlistContextProvider = ({ children }) => {
 			value={{
 				isRefreshing,
 				orderlist,
+				isLoading,
+				error,
+				setIsLoading,
+				setError,
 				onAddToOrder,
 				onDeleteOrderlist,
 				onRemoveFromOrder,

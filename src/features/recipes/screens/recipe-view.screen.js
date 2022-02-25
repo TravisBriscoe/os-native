@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Alert } from "react-native";
 
 import { RecipesContext } from "../../../services/recipes/recipes.context";
 import { CustomButton } from "../../../components/utilities/custom-button.component";
@@ -100,8 +100,23 @@ export const RecipeView = ({ recipe }) => {
 							label="Delete"
 							style={{ marginRight: 10, alignSelf: "center" }}
 							action={() => {
-								setEditRecipe({ [id]: { edit: false } });
-								onDeleteRecipe(id);
+								Alert.alert(
+									"Delete recipe " + name + "?",
+									"\nAre you sure?\nThis operation cannot be undone.",
+									[
+										{
+											text: "Cancel",
+											onPress: () => null,
+										},
+										{
+											text: "Confirm",
+											onPress: () => {
+												setEditRecipe({ [id]: { edit: false } });
+												onDeleteRecipe(id);
+											},
+										},
+									]
+								);
 							}}
 						/>
 					)}

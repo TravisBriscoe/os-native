@@ -27,6 +27,7 @@ export const SignUpScreen = ({ navigation }) => {
 			<TextInput
 				style={{ height: 40, margin: 12, borderWidth: 1, padding: 10, width: "80%" }}
 				value={useremail}
+				keyboardType="email-address"
 				onChangeText={(text) => {
 					setNoEmail(false);
 					setAuthError(null);
@@ -37,6 +38,7 @@ export const SignUpScreen = ({ navigation }) => {
 			<TextInput
 				style={{ height: 40, margin: 12, borderWidth: 1, padding: 10, width: "80%" }}
 				value={password}
+				secureTextEntry={true}
 				onChangeText={(text) => {
 					setNoPassword(false);
 					setAuthError(null);
@@ -47,6 +49,7 @@ export const SignUpScreen = ({ navigation }) => {
 			<TextInput
 				style={{ height: 40, margin: 12, borderWidth: 1, padding: 10, width: "80%" }}
 				value={confirmPassword}
+				secureTextEntry={true}
 				onEndEditing={() => {
 					if (password !== confirmPassword) {
 						onChangePasswordOk(false);

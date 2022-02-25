@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FlatList, RefreshControl } from "react-native";
 
 import { CustomFab } from "../../../components/utilities/custom-fab.component";
@@ -8,12 +8,10 @@ import { CustomSpinner } from "../../../components/utilities/custom-spinner.comp
 import { ProductList } from "../components/product-list.component";
 import { ProductsContext } from "../../../services/products/products.context";
 import { OrderlistContext } from "../../../services/orderlist/orderlist.context";
-import { AppContext } from "../../../services/app/app.context";
 
 export const ProductsScreen = ({ navigation }) => {
-	const { products, isRefreshing, fetchProducts } = useContext(ProductsContext);
+	const { products, isRefreshing, fetchProducts, isLoading, error } = useContext(ProductsContext);
 	const { fetchOrderlist } = useContext(OrderlistContext);
-	const { isLoading, error } = useContext(AppContext);
 
 	return (
 		<CustomView>
@@ -31,7 +29,12 @@ export const ProductsScreen = ({ navigation }) => {
 						}}
 					/>
 				}
-				renderItem={({ item }) => <ProductList product={item} />}
+				renderItem={({ item }) => (
+					<ProductList
+						product={item}
+						// productExpanded={productExpanded}
+					/>
+				)}
 			/>
 		</CustomView>
 	);
