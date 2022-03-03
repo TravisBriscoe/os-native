@@ -22,7 +22,7 @@ export const RecipesScreen = ({ navigation }) => {
 		>
 			{isLoading && <CustomSpinner />}
 			{error && <CustomText variant="error">{error}</CustomText>}
-			<CustomFab action={() => navigation.navigate("AddRecipe")} />
+			<CustomFab type="plus" action={() => navigation.navigate("AddRecipe")} />
 			<CustomDivider place="bottom" size="med" />
 			<FlatList
 				data={recipes}

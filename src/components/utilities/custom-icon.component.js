@@ -1,9 +1,6 @@
 import React, { useContext } from "react";
 import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { EvilIcons } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
 import { ThemeContext } from "styled-components/native";
 
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";

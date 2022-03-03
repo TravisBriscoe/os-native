@@ -16,7 +16,7 @@ import { SafeAreaView, StatusBar, Platform, View } from "react-native";
 import { ThemeContext } from "styled-components/native";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 
-export const CustomMainView = ({ style, children, bgColor }) => {
+export const CustomMainView = ({ style, children }) => {
 	const { myTheme, material } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
 
@@ -37,7 +37,7 @@ export const CustomView = ({ children, style, bgColor, header }) => {
 
 	const backgroundStyle = {
 		backgroundColor: bgColor ? bgColor : currentTheme.colors[myTheme][material].secondary,
-		flex: !header ? 1 : null,
+		...(!header ? { flex: 1 } : null),
 	};
 
 	return <SafeAreaView style={[backgroundStyle, style]}>{children}</SafeAreaView>;

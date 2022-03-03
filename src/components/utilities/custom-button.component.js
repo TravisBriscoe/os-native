@@ -3,6 +3,7 @@
  *
  * props: style, action, label, size = 100, variant = "default"
  * if selecting variant = "themed" textColor prop is required (for now), size prop and bgColor prop is optional
+ *
  */
 
 import React, { useContext } from "react";

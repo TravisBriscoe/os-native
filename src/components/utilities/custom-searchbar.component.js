@@ -1,21 +1,22 @@
 import React, { useContext, useState } from "react";
-import { View } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { ThemeContext } from "styled-components/native";
 
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
+import { ProductsContext } from "../../services/products/products.context";
 
 export const CustomSearchbar = (props) => {
-	const [keyword, setKeyword] = useState("");
-	const { myTheme, material, myFont, spacing } = useContext(AppSettingsContext);
+	const { search } = useContext(ProductsContext);
+	const { myTheme, material, myFont } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
 
 	return (
 		<Searchbar
 			{...props}
 			placeholder="Search"
-			value={keyword}
-			onChangeText={(text) => setKeyword(text)}
+			onChangeText={(text) => {
+				search(text);
+			}}
 			style={{
 				width: "90%",
 				alignSelf: "center",

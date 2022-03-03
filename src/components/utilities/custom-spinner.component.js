@@ -5,11 +5,9 @@
  */
 
 import React, { useContext } from "react";
-import { View } from "react-native";
 import { ActivityIndicator, Colors } from "react-native-paper";
 import styled, { ThemeContext } from "styled-components/native";
 
-import { CustomText } from "./custom-text.component";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 
 export const CustomSpinner = () => {
@@ -36,32 +34,6 @@ export const CustomSpinner = () => {
 				}
 				size={125}
 			/>
-			{/* <View
-				style={{
-					position: "absolute",
-					paddingTop: currentTheme.spacing[7] + currentTheme.spacing[2],
-					paddingLeft: currentTheme.spacing[7],
-				}}
-			>
-				<CustomText
-					style={{
-						fontSize: currentTheme.fontSizes[1],
-						fontFamily: currentTheme.fonts[myFont],
-						fontStyle: "italic",
-					}}
-				>
-					Gathering
-				</CustomText>
-				<CustomText
-					style={{
-						fontSize: currentTheme.fontSizes[1],
-						fontFamily: currentTheme.fonts[myFont],
-						fontStyle: "italic",
-					}}
-				>
-					Data...
-				</CustomText>
-			</View> */}
 		</LoadingContainer>
 	);
 };

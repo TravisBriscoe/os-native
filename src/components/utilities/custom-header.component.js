@@ -1,3 +1,9 @@
+/**
+ *
+ * Custom header for use in Stack Navigators
+ *
+ */
+
 import React from "react";
 
 import { CustomIcon } from "./custom-icon.component";

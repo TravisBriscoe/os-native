@@ -6,7 +6,6 @@ import { CustomInput } from "../../../components/utilities/custom-input.componen
 import { CustomView } from "../../../components/utilities/custom-views.component";
 import { CustomText } from "../../../components/utilities/custom-text.component";
 import { RecipesContext } from "../../../services/recipes/recipes.context";
-import { AppContext } from "../../../services/app/app.context";
 import { CustomDivider } from "../../../components/utilities/custom-divider.component";
 
 export const AddRecipe = ({ navigation }) => {
@@ -17,8 +16,7 @@ export const AddRecipe = ({ navigation }) => {
 	const [newNotes, setNewNotes] = useState();
 	const [count, setCount] = useState(0);
 
-	const { onSaveNewRecipe, recipes } = useContext(RecipesContext);
-	const { error, setError } = useContext(AppContext);
+	const { onSaveNewRecipe, recipes, error, setError } = useContext(RecipesContext);
 
 	const forceUpdate = () => {
 		return setCount((count) => count + 1);

@@ -8,16 +8,23 @@ import { sortData } from "../utils/sortData";
 export const ProductsContext = createContext();
 
 export const ProductsContextProvider = ({ children }) => {
-	const [products, setProducts] = useState({});
-	const [orderlist, setOrderlist] = useState({});
+	const [products, setProducts] = useState(null);
 	const [isRefreshing, setIsRefreshing] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
+	const [keyword, setKeyword] = useState("");
+
+	const onSearchProducts = (word) => {
+		setIsLoading(true);
+		setKeyword(word);
+	};
 
 	useEffect(() => {
 		const subscriber = firestore()
 			.collection("product-list")
 			.onSnapshot((querySnapshot) => {
+				setIsLoading(true);
+
 				const dataObj = Object.create({});
 
 				querySnapshot.forEach((documentSnapshot) => {
@@ -29,20 +36,39 @@ export const ProductsContextProvider = ({ children }) => {
 					};
 				});
 
-				setProducts(sortData(objToArr(dataObj)));
+				let productsArr = sortData(objToArr(dataObj));
+
+				if (keyword !== "") {
+					const searchData1 = productsArr.filter((product) => {
+						return product.name.toLowerCase().includes(keyword.toLowerCase());
+					});
+
+					const searchData2 = productsArr.filter((product) => {
+						return product.desc.toLowerCase().includes(keyword.toLowerCase());
+					});
+
+					const searchData = [...searchData1, ...searchData2].filter(
+						(x, i, a) => a.indexOf(x) === i
+					);
+
+					productsArr = searchData;
+				}
+
+				setProducts(productsArr);
 				setError(null);
 				setIsLoading(false);
 			});
 
 		return () => {
 			subscriber();
+			setIsLoading(false);
 		};
-	}, []);
+	}, [keyword]);
 
 	const onDeleteProduct = async (id) => {
-		setIsLoading(true);
-
 		try {
+			setIsLoading(true);
+
 			firestoreUtils.deleteData("product-list", id).then(() => {
 				setError(null);
 				setIsLoading(false);
@@ -63,8 +89,8 @@ export const ProductsContextProvider = ({ children }) => {
 				setIsLoading(false);
 			})
 			.catch((err) => {
-				setIsLoading(false);
 				setError(err);
+				setIsLoading(false);
 			});
 	};
 
@@ -78,8 +104,8 @@ export const ProductsContextProvider = ({ children }) => {
 				setIsLoading(false);
 			})
 			.catch((err) => {
-				setIsLoading(false);
 				setError(err);
+				setIsLoading(false);
 			});
 	};
 
@@ -113,12 +139,14 @@ export const ProductsContextProvider = ({ children }) => {
 				isRefreshing,
 				error,
 				isLoading,
+				setKeyword,
 				setIsLoading,
 				setError,
 				onDeleteProduct,
 				onUpdateProduct,
 				onAddNewProduct,
 				fetchProducts,
+				search: onSearchProducts,
 			}}
 		>
 			{children}

@@ -8,10 +8,10 @@ import { ThemeContext } from "styled-components/native";
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 import { CustomView } from "../../components/utilities/custom-views.component";
 import { CustomText } from "../../components/utilities/custom-text.component";
-import { SettingsScreen } from "../../features/settings/screens/settings.screen";
 import { ProductsNav } from "./products.navigator";
 import { RecipesNav } from "./recipes.navigator";
 import { OrderListScreen } from "../../features/orderlist/screens/orderlist.screen";
+import { AppSettingsNav } from "./app-settings.navigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,7 +24,7 @@ const OrderSheet = () => {
 };
 
 export const AppNav = () => {
-	const { myTheme, myFont, material, restaurantName } = useContext(AppSettingsContext);
+	const { myTheme, myFont, material, restaurantName, nameLength } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
 
 	return (
@@ -75,13 +75,18 @@ export const AppNav = () => {
 							height: 50,
 							backgroundColor: currentTheme.colors[myTheme][material].secondary,
 							alignItems: "center",
+							...(nameLength > 17 && { justifyContent: "center" }),
 						},
 						headerText: {
 							color: currentTheme.colors[myTheme][material].primary,
 							fontFamily: currentTheme.fonts[myFont],
 							fontStyle: "italic",
 							fontSize:
-								myFont === "default" ? currentTheme.fontSizes[6] : currentTheme.fontSizes[5] + 5,
+								myFont === "default"
+									? nameLength > 17
+										? currentTheme.fontSizes[4]
+										: currentTheme.fontSizes[6]
+									: currentTheme.fontSizes[5] + 5,
 						},
 					},
 				})}
@@ -89,7 +94,7 @@ export const AppNav = () => {
 				<Tab.Screen name="ProductsNav" component={ProductsNav} options={{ title: "Products" }} />
 				<Tab.Screen name="RecipesNav" component={RecipesNav} options={{ title: "Recipes" }} />
 				<Tab.Screen name="OrderSheet" component={OrderListScreen} />
-				<Tab.Screen name="Settings" component={SettingsScreen} />
+				<Tab.Screen name="Settings" component={AppSettingsNav} />
 			</Tab.Navigator>
 		</NavigationContainer>
 	);

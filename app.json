@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "os-native",
+    "name": "Order Sheet Native",
     "slug": "os-native",
-    "version": "1.0.0",
+    "version": "0.98.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {

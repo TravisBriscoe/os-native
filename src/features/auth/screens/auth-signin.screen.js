@@ -107,9 +107,11 @@ export const LoginScreen = ({ navigation }) => {
 				disabled={authLoading}
 				style={{ opacity: authLoading ? 0.6 : 1 }}
 			/>
+			<CustomDivider size="xxlg" />
+			<CustomText variant="error">Username: tester@tester.com, Password: 123456</CustomText>
 			<View
 				style={{
-					flex: 0.1,
+					flex: 0.05,
 					width: "75%",
 					borderBottomWidth: 0.5,
 					borderBottomColor: "black",

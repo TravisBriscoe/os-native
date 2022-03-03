@@ -17,6 +17,7 @@ export const RecipesContextProvider = ({ children }) => {
 			.collection("recipe-list")
 			.onSnapshot((querySnapshot) => {
 				setIsLoading(true);
+
 				const dataObj = Object.create({});
 
 				querySnapshot.docs.map((documentSnapshot) => {

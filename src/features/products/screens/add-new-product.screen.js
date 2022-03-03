@@ -9,7 +9,6 @@ import { CustomButton } from "../../../components/utilities/custom-button.compon
 import { CustomText } from "../../../components/utilities/custom-text.component";
 
 import { ProductsContext } from "../../../services/products/products.context";
-import { AppContext } from "../../../services/app/app.context";
 
 export const AddProduct = ({ navigation }) => {
 	const [newName, setNewName] = useState("");
@@ -20,12 +19,11 @@ export const AddProduct = ({ navigation }) => {
 	const [newStored, setNewStored] = useState("");
 	const [newSplit, setNewSplit] = useState(false);
 
-	const { products, onAddNewProduct } = useContext(ProductsContext);
-	const { error } = useContext(AppContext);
+	const { products, onAddNewProduct, error } = useContext(ProductsContext);
 
 	return (
-		<CustomView style={{ flexDirection: "column", justifyContent: "center" }}>
-			<CustomView style={{ alignItems: "center", justifyContent: "center" }}>
+		<CustomView style={{ justifyContent: "center", alignContent: "center" }}>
+			<CustomView style={{ flex: 0.5, justifyContent: "flex-end", alignItems: "center" }}>
 				<CustomView
 					style={{
 						flexDirection: "row",
@@ -116,20 +114,27 @@ export const AddProduct = ({ navigation }) => {
 						onChangeText={(text) => setNewStored(text)}
 					/>
 				</CustomView>
+				{/* <CustomView> */}
+				<CustomView
+					header
+					style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}
+				>
+					<CustomText>Split?</CustomText>
+					<Checkbox
+						status={newSplit ? "checked" : "unchecke"}
+						onPress={() => setNewSplit(!newSplit)}
+					/>
+				</CustomView>
 			</CustomView>
-			{/* <CustomView> */}
-			<View
-				style={{ flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center" }}
-			>
-				<CustomText>Split?</CustomText>
-				<Checkbox
-					status={newSplit ? "checked" : "unchecke"}
-					onPress={() => setNewSplit(!newSplit)}
-				/>
-			</View>
 			{/* </CustomView> */}
-			<CustomDivider />
-			<View style={{ flexDirection: "row", alignSelf: "center", paddingBottom: 10 }}>
+			<CustomView
+				header
+				style={{
+					flexDirection: "row",
+					justifyContent: "flex-end",
+					alignSelf: "center",
+				}}
+			>
 				<CustomButton
 					labelText
 					label="Clear"
@@ -169,7 +174,7 @@ export const AddProduct = ({ navigation }) => {
 					}}
 				/>
 				{error && <CustomText variant="error">{error}</CustomText>}
-			</View>
+			</CustomView>
 		</CustomView>
 	);
 };

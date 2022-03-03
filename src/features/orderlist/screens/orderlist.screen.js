@@ -14,9 +14,23 @@ export const OrderListScreen = () => {
 	const { orderlist, onDeleteOrderlist, fetchOrderlist, isRefreshing, isLoading, error } =
 		useContext(OrderlistContext);
 
+	if (!orderlist.length) {
+		return (
+			<CustomView style={{ alignItems: "center", justifyContent: "center" }}>
+				<CustomText style={{ textAlign: "center" }} variant="body">
+					No products on Order!
+				</CustomText>
+				<CustomText variant="body" style={{ textAlign: "center" }}>
+					Please add products on the Products Screen
+				</CustomText>
+			</CustomView>
+		);
+	}
+
 	return (
 		<CustomView>
 			{isLoading && <CustomSpinner />}
+			{error && <CustomText variant="error">{error}</CustomText>}
 			<CustomDivider size="xlg" />
 			<FlatList
 				refreshControl={
@@ -29,12 +43,16 @@ export const OrderListScreen = () => {
 				}
 				data={orderlist}
 				ListEmptyComponent={
-					<CustomView style={{ flex: 1, alignSelf: "center", justifyContent: "center" }}>
-						<CustomText style={{ textAlign: "center" }} variant="body">
-							No products on Order!
-						</CustomText>
-						<CustomText variant="body">Please add products on the Products Screen</CustomText>
-					</CustomView>
+					<>
+						<CustomView style={{ height: "100%", alignItems: "center", justifyContent: "center" }}>
+							<CustomText style={{ textAlign: "center" }} variant="body">
+								No products on Order!
+							</CustomText>
+							<CustomText variant="body" style={{ textAlign: "center" }}>
+								Please add products on the Products Screen
+							</CustomText>
+						</CustomView>
+					</>
 				}
 				renderItem={({ item }) => <OrderList order={item} />}
 			/>

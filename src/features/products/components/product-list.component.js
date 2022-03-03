@@ -11,9 +11,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { CustomView } from "../../../components/utilities/custom-views.component";
 import { ProductsContext } from "../../../services/products/products.context";
 import { OrderlistContext } from "../../../services/orderlist/orderlist.context";
-import { objToArr } from "../../../services/utils/objtoarr";
 
-export const ProductList = ({ product = {}, productExpanded }) => {
+export const ProductList = ({ product = {} }) => {
 	const currentTheme = useContext(ThemeContext);
 	const { myTheme, myFont, material } = useContext(AppSettingsContext);
 	const { orderlist, onAddToOrder, onUpdateOrder, onRemoveFromOrder } =
@@ -23,10 +22,10 @@ export const ProductList = ({ product = {}, productExpanded }) => {
 	const { desc, name, unit, dist, stored, category, split, id } = product;
 	const [editProduct, setEditProduct] = useState({ id, edit: false });
 
-	const transferItems = () => {
+	transferItems = () => {
 		const dataObj = {};
 
-		if (!orderlist) return orderlist;
+		if (!orderlist) return {};
 		else if (orderlist.length) {
 			orderlist.map((item) => {
 				const { id } = item;
@@ -38,6 +37,8 @@ export const ProductList = ({ product = {}, productExpanded }) => {
 
 			return dataObj;
 		}
+
+		return dataObj;
 	};
 
 	const productIsExpanded = () => {
@@ -52,35 +53,49 @@ export const ProductList = ({ product = {}, productExpanded }) => {
 		return dataObj;
 	};
 
-	const [isProductExpanded, setIsProductExpanded] = useState(productIsExpanded());
+	const [isProductExpanded, setIsProductExpanded] = useState(false);
+
+	// const changeExpanded = (oldId) => {
+	// 	const oldData = Object.entries(isProductExpanded).map((el) => {
+	// 		const exitData = {};
+
+	// 		if (el[1].id !== oldId) {
+	// 			exitData[el[1].id] = { id: el[1].id, isExpanded: false };
+	// 		} else return;
+
+	// 		return Object.assign({}, exitData);
+	// 	});
+
+	// 	const newData = Object.entries(isProductExpanded).filter((el) => {
+	// 		const exitData = {};
+
+	// 		if (el[1].id === oldId) {
+	// 			exitData[el[1].id] = { id: el[1].id, isExpanded: !el[1].isExpanded };
+	// 		} else return undefined;
+
+	// 		return exitData;
+	// 	});
+
+	// 	const allData = { ...newData, ...oldData };
+
+	// 	setIsProductExpanded({
+	// 		allData,
+	// 	});
+	// };
 
 	const changeExpanded = (oldId) => {
-		const oldData = Object.entries(isProductExpanded).map((el) => {
-			const exitData = {};
+		if (isProductExpanded !== oldId) {
+			setIsProductExpanded(oldId);
+		} else setIsProductExpanded("");
 
-			if (el[1].id !== oldId) {
-				exitData[el[1].id] = { id: el[1].id, isExpanded: false };
-			} else return;
+		forceUpdate();
+	};
 
-			return Object.assign({}, exitData);
-		});
+	const [count, setCount] = useState(0);
 
-		const newData = Object.entries(isProductExpanded).filter((el) => {
-			const exitData = {};
-
-			if (el[1].id === oldId) {
-				exitData[el[1].id] = { id: el[1].id, isExpanded: !el[1].isExpanded };
-			} else return undefined;
-
-			return exitData;
-		});
-
-		console.log(oldData);
-
-		setIsProductExpanded({
-			newData,
-			oldData,
-		});
+	const forceUpdate = () => {
+		let newCount = count + 1;
+		setCount(newCount);
 	};
 
 	const [addToOrderList, setAddToOrderList] = useState(transferItems());
@@ -92,7 +107,7 @@ export const ProductList = ({ product = {}, productExpanded }) => {
 	};
 
 	return (
-		<CustomView style={{ flexDirection: "row" }}>
+		<CustomView style={{ flex: 1, flexDirection: "row" }}>
 			<List.Section style={{ width: "90%" }}>
 				<List.Accordion
 					title={<CustomText>{name}</CustomText>}
@@ -103,8 +118,10 @@ export const ProductList = ({ product = {}, productExpanded }) => {
 							</CustomText>
 						)
 					}
-					// expanded={console.log(isProductExpanded)}
-					onPress={() => changeExpanded(id)}
+					expanded={isProductExpanded}
+					onPress={() => {
+						setIsProductExpanded((prevState) => !prevState);
+					}}
 					descriptionNumberOfLines={1}
 					titleStyle={{
 						fontSize: currentTheme.fontSizes[6],
@@ -128,7 +145,7 @@ export const ProductList = ({ product = {}, productExpanded }) => {
 										variant="themed"
 										orientation="column"
 										inputWidth="80%"
-										viewWidth="75%"
+										viewWidth="50%"
 										placeholder={desc}
 										style={{
 											flex: 1,
@@ -163,7 +180,7 @@ export const ProductList = ({ product = {}, productExpanded }) => {
 										variant="themed"
 										orientation="column"
 										inputWidth="80%"
-										viewWidth="75%"
+										viewWidth="50%"
 										placeholder={unit}
 										style={{
 											flex: 1,
@@ -195,7 +212,7 @@ export const ProductList = ({ product = {}, productExpanded }) => {
 										variant="themed"
 										orientation="column"
 										inputWidth="80%"
-										viewWidth="75%"
+										viewWidth="50%"
 										placeholder={dist}
 										style={{
 											flex: 1,
@@ -227,7 +244,7 @@ export const ProductList = ({ product = {}, productExpanded }) => {
 										variant="themed"
 										orientation="column"
 										inputWidth="80%"
-										viewWidth="75%"
+										viewWidth="50%"
 										placeholder={stored}
 										style={{
 											flex: 1,
@@ -259,7 +276,7 @@ export const ProductList = ({ product = {}, productExpanded }) => {
 										variant="themed"
 										orientation="column"
 										inputWidth="80%"
-										viewWidth="75%"
+										viewWidth="50%"
 										placeholder={category}
 										style={{
 											flex: 1,
@@ -387,7 +404,7 @@ export const ProductList = ({ product = {}, productExpanded }) => {
 				viewWidth="8%"
 				style={{ padding: 5, textAlign: "right" }}
 				viewStyle={{ paddingTop: 25 }}
-				// placeholder={!addToOrderList ? "0" : addToOrderList[id].data.value.toString()}
+				placeholder={!addToOrderList[id] ? "0" : addToOrderList[id].data.value.toString()}
 				keyboardType="numeric"
 				onChangeText={(text) => {
 					if (!addToOrderList || !addToOrderList[id]) {

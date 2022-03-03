@@ -1,3 +1,9 @@
+/**
+ *
+ * Custom FAB for adding NewRecipes or NewProducts
+ *
+ */
+
 import React, { useContext } from "react";
 import { FAB } from "react-native-paper";
 import { ThemeContext } from "styled-components/native";
@@ -14,7 +20,7 @@ export const CustomFab = (props) => {
 			style={[
 				{
 					position: "absolute",
-					bottom: 20,
+					bottom: 10,
 					right: 10,
 					borderRadius: 50,
 					elevation: 3,
@@ -25,7 +31,7 @@ export const CustomFab = (props) => {
 				props.style,
 			]}
 			small
-			icon="plus"
+			icon={props.type}
 			onPress={props.action}
 		/>
 	);

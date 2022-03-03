@@ -9,20 +9,16 @@
  *
  */
 
-//
-//
-
-//
-
 import React, { useContext } from "react";
 import { Text } from "react-native";
 import { ThemeContext } from "styled-components/native";
 
 import { AppSettingsContext } from "../../services/app-settings/app-settings.context";
 
-export const CustomText = ({ children, style, variant = "body" }) => {
+export const CustomText = (props) => {
 	const { myFont, myTheme, material } = useContext(AppSettingsContext);
 	const currentTheme = useContext(ThemeContext);
+	const { children, style, variant = "body" } = props;
 
 	const variants = {
 		error: {
@@ -49,6 +45,10 @@ export const CustomText = ({ children, style, variant = "body" }) => {
 			fontSize: 16,
 			color: "#000000",
 		},
+		link: {
+			fontSize: 16,
+			color: currentTheme.colors[myTheme][material].tertiary,
+		},
 	};
 
 	const themedStyling = {
@@ -56,5 +56,9 @@ export const CustomText = ({ children, style, variant = "body" }) => {
 		fontFamily: currentTheme.fonts[myFont],
 	};
 
-	return <Text style={[themedStyling, variants[variant], style]}>{children}</Text>;
+	return (
+		<Text {...props} style={[themedStyling, variants[variant], style]}>
+			{children}
+		</Text>
+	);
 };
